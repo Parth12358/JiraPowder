@@ -4,6 +4,52 @@ Open questions and decisions found while building. Newest first.
 
 ---
 
+## Big maps and the colour scheme (after v0.1.4)
+
+Measured in headless Chromium (software rendering) with `?demo=big`. "Before" is the first draft of
+this work (zoom levels, culling with `display:none`); v0.1.4 itself had no culling at all.
+
+| | 200 tickets | 500 tickets |
+|---|---|---|
+| Rebuild after a filter change | 225 ms → 64 ms | 547 ms → 137 ms |
+| Zoom/pan frame | 126 ms → 33 ms | 248 ms → 33–66 ms |
+
+Graph layout alone (Node, same machine): 200 tickets 264 → 118 ms, 400 tickets 1078 → 225 ms,
+500 tickets 298 ms; it now runs in a worker, so the window never waits for it. 33 ms is two
+frames, the floor of the measurement.
+
+What made the difference:
+
+- **Culling by detaching.** Off-screen nodes and edges are removed from the DOM, not hidden.
+  With `display:none` Chromium still walked all hidden SVG on every pan/zoom transform. For the
+  same reason a node holds only the current mode's shapes (cards *or* circles), and the map is
+  rebuilt on a mode switch.
+- **No forced layout after building.** Nodes are built detached and the stage size is cached
+  (`ResizeObserver`); `getBoundingClientRect` right after inserting 500 cards cost ~400 ms.
+- **Detail by zoom.** Below 42% cards show only a big key on a state-tinted block; below 75%, or
+  with 120+ tickets, no drop shadows or transitions. **Fit** now zooms out as far as needed (to
+  8%); automatic fits still stop at a readable zoom and centre on the selection, as in the
+  mockup.
+- **Graph layout:** Barnes-Hut (typed-array quadtree, θ 0.9, 300 steps) above 150 tickets,
+  in a web worker with a synchronous fallback if the worker fails or takes over 5 s. At 150 or
+  fewer it is the mockup's exact version, unchanged.
+- **Flow layout:** after the mockup's forward pass, up to 8 alternating barycenter sweeps keep
+  the order with the fewest crossings (tested never worse than the forward pass). A column
+  taller than max(12, 1.6·√n) rows is split into sub-columns, filled row by row. The sample
+  sprint is unaffected.
+
+**Colours** (departure from the mockup, asked for): owner → card outline and circle stroke;
+state (done > blocked > in progress > ready) → left stripe and circle fill. The old teal
+selection bar became the state stripe; selection is still the white outline. Colours are stored
+in `localStorage`, not `config.json`: they then work in Demo mode and before Jira is set up, and
+changing them doesn't reconnect the MCP server. The **Mono** preset (default) stays within the
+mockup's grey + teal palette.
+
+Not verified in WebKit yet (no WebKit here). Workers from the `tauri://` origin should work
+under the CSP (`script-src 'self'`); if not, the fallback runs the layout on the UI thread.
+
+---
+
 ## Logo geometry differs from the mockup (v0.1.4)
 
 In the mockup's logo the two lines don't point at the circle centres, so the V looks bent.

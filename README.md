@@ -84,6 +84,13 @@ Select a ticket to see its blockers (solid white), the tickets it blocks (dashed
 path to start. Tickets outside the sprint that are linked to it appear as dotted ghosts.
 **Work order** groups open tickets into waves you can start in sequence.
 
+Each card's outline shows whose ticket it is (mine, others, unassigned) and the stripe on its
+left shows its state (blocked, ready, in progress, done); in Graph the circle's fill is the state.
+Change the colours in Settings → **Colours**, or pick the **Mono** or **Vivid** preset.
+
+Big sprints (hundreds of tickets): **Fit** zooms out until everything is on screen. Zoomed out,
+cards turn into coloured blocks showing just the key; zoom in for the full card.
+
 If something goes wrong:
 - **Couldn't find `uvx`**: install uv, or put the full path from `which uvx` in Command.
 - **No story points**: Settings → **Detect** finds your site's field.
@@ -109,6 +116,9 @@ the Tauri shell with `cargo test --no-default-features`.
 
 To try the app without Jira, tick **Use the built-in fake server** in Settings (dev builds
 only). It serves sample tickets through a real MCP connection.
+
+In `npm run dev`, `?demo=big&n=400` loads a generated sprint of that many tickets (for checking
+the map at scale) and `?demo=cycle` shows a blocking cycle.
 
 | Path | What |
 |---|---|

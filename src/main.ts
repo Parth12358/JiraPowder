@@ -2,7 +2,7 @@
 import './styles.css';
 import { api, inApp, onMenu, toAppError } from './api';
 import { buildGraph, computeVisible, defaultSprint, sprintOptions } from './graph/model';
-import { SAMPLE_INITIAL_SELECTION, cycleSnapshot, sampleSnapshot } from './sample';
+import { SAMPLE_INITIAL_SELECTION, bigSnapshot, cycleSnapshot, sampleSnapshot } from './sample';
 import type { AppState, Mode } from './state';
 import type { Config, Snapshot } from './types';
 import { $, esc } from './ui/dom';
@@ -10,11 +10,17 @@ import { renderInsp } from './ui/inspector';
 import { renderList } from './ui/list';
 import { createMap } from './ui/map';
 import { renderOrder } from './ui/order';
+import { applyColors, loadColors } from './ui/colors';
 import { initSettings, openSettings } from './ui/settings';
 import { renderStatus } from './ui/status';
 
+const devDemo = import.meta.env.DEV ? new URLSearchParams(location.search) : null;
 const demo =
-  import.meta.env.DEV && new URLSearchParams(location.search).get('demo') === 'cycle' ? cycleSnapshot() : sampleSnapshot();
+  devDemo?.get('demo') === 'cycle'
+    ? cycleSnapshot()
+    : devDemo?.get('demo') === 'big'
+      ? bigSnapshot(Number(devDemo.get('n')) || 400)
+      : sampleSnapshot();
 const st: AppState = {
   snapshot: demo,
   graph: buildGraph(demo.tickets),
@@ -86,6 +92,7 @@ function setMode(m: Mode) {
   st.mode = m;
   $('m-flow').setAttribute('aria-pressed', String(m === 'flow'));
   $('m-graph').setAttribute('aria-pressed', String(m === 'graph'));
+  map.build(); // nodes hold only the current mode's shapes
   map.relayout();
   map.highlight();
   renderStatus(st, noticeHandlers);
@@ -251,6 +258,7 @@ initSettings({
 
 /* ---------- boot ---------- */
 async function boot() {
+  applyColors(loadColors());
   applySnapshot(demo, true, true);
   if (!inApp()) return;
   void onMenu((a) => (a === 'refresh' ? void refresh() : void openSettings()));

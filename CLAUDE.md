@@ -15,4 +15,4 @@ Full plan: `PLAN.md`. Open questions and decisions: `NOTES.md`.
 - App: `npm run tauri dev`
 - Rust (in `src-tauri/`): `cargo test`, `cargo clippy --all-targets -- -D warnings`, `cargo fmt --check`
 - Rust without a system webview (Linux without webkit2gtk): add `--no-default-features`
-- Dev-only: open the browser build with `?demo=cycle` to see a blocking cycle
+- Dev-only: open the browser build with `?demo=cycle` to see a blocking cycle, or `?demo=big&n=400` for a large sprint

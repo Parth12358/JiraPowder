@@ -44,6 +44,16 @@ export function isReady(g: Graph, k: string): boolean {
   return !isDone(g, k) && openBlockers(g, k).length === 0;
 }
 
+export type Readiness = 'blocked' | 'ready' | 'prog' | 'done';
+
+/** The state a ticket is coloured by: done, else blocked (an open blocker), else in progress, else ready. */
+export function readiness(g: Graph, k: string): Readiness {
+  if (isDone(g, k)) return 'done';
+  if (openBlockers(g, k).length) return 'blocked';
+  const s = g.byKey.get(k)?.status;
+  return s === 'prog' || s === 'review' ? 'prog' : 'ready';
+}
+
 /** Iterative walk along `next`, optionally restricted to `within`. Cycle-safe. */
 function walk(start: string, next: Map<string, string[]>, within?: Set<string>): Set<string> {
   const acc = new Set<string>();

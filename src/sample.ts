@@ -80,3 +80,47 @@ export function cycleSnapshot(): Snapshot {
   t('PAY-104').blocks.push('PAY-103');
   return snap;
 }
+
+/** Dev only (`?demo=big&n=400`): a large active sprint for checking the map at scale. Deterministic. */
+export function bigSnapshot(n = 400): Snapshot {
+  let x = 42;
+  const rnd = () => (x = (x * 1103515245 + 12345) % 2 ** 31) / 2 ** 31;
+  const pick = <T>(a: T[]) => a[Math.floor(rnd() * a.length)]!;
+  const people = [ME, 'Maya Chen', 'Dev Patel', 'Sam Okafor', 'Lena Ruiz', 'Ivo Novak', 'Ana Silva', 'Kai Mori'];
+  const verbs = ['Add', 'Fix', 'Migrate', 'Refactor', 'Document', 'Test', 'Ship', 'Harden', 'Split', 'Cache'];
+  const things = ['ledger writes', 'payout retries', 'bank export', 'auth scopes', 'webhooks', 'rate limits', 'admin dashboard', 'reconciliation', 'FX rounding', 'audit log'];
+  const epics = ['Payouts v2', 'Ledger', 'Compliance', 'Platform'];
+  const tickets: Ticket[] = [];
+  for (let i = 0; i < n; i++) {
+    const key = `PAY-${1000 + i}`;
+    const by = new Set<string>();
+    if (i > 5 && rnd() < 0.62) by.add(`PAY-${1000 + Math.floor(i * (0.55 + rnd() * 0.45))}`);
+    if (i > 5 && rnd() < 0.18) by.add(`PAY-${1000 + Math.floor(rnd() * i)}`);
+    by.delete(key);
+    const r = rnd();
+    const s: StatusCat = r < 0.18 ? 'done' : r < 0.36 ? 'prog' : r < 0.44 ? 'review' : 'todo';
+    const a = rnd() < 0.1 ? null : pick(people);
+    const ty = pick<IssueType>(['story', 'story', 'task', 'task', 'bug']);
+    tickets.push({
+      key,
+      summary: `${pick(verbs)} ${pick(things)}`,
+      status: s,
+      statusName: STATUS_NAME[s],
+      type: ty,
+      typeName: TYPE_NAME[ty]!,
+      priority: pick<Priority>(['high', 'med', 'med', 'low']),
+      assignee: a ? { name: a, initials: initialsOf(a) } : null,
+      isMine: a === ME,
+      sprint: SPRINTS.S43!,
+      points: pick([1, 2, 3, 5, 8, null]),
+      epic: pick(epics),
+      blockedBy: [...by],
+      blocks: [],
+      url: '',
+      inScope: true,
+    });
+  }
+  const byKey = new Map(tickets.map((t) => [t.key, t]));
+  for (const t of tickets) for (const b of t.blockedBy) byKey.get(b)!.blocks.push(t.key);
+  return { fetchedAt: new Date(0).toISOString(), scopeLabel: `Demo: ${n} tickets`, tickets, warnings: [] };
+}

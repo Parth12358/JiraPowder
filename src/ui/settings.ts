@@ -1,6 +1,7 @@
-// Settings sheet: Server, Jira, Refresh, Diagnostics.
+// Settings sheet: Server, Jira, Refresh, Colours, Diagnostics.
 import { api, inApp, toAppError } from '../api';
 import type { Config, Scope } from '../types';
+import { OWNER_KEYS, PRESETS, STATE_KEYS, applyColors, loadColors, saveColors, type ColorKey, type Colors } from './colors';
 import { $, esc } from './dom';
 
 export const DEFAULT_CONFIG: Config = {
@@ -57,8 +58,17 @@ function envRows(env: Record<string, string>) {
     .join('');
 }
 
+const colorRows = (keys: [ColorKey, string][], c: Colors) =>
+  keys
+    .map(
+      ([k, label]) =>
+        `<label class="crow"><input type="color" data-color="${k}" value="${c[k]}" aria-label="${label} colour"> ${label}<span class="hex">${c[k]}</span></label>`,
+    )
+    .join('');
+
 function render() {
   const c = cfg;
+  const colors = loadColors();
   const custom = c.profile === 'custom';
   const browserNote = inApp()
     ? ''
@@ -124,6 +134,15 @@ function render() {
         ]
           .map(([v, l]) => `<option value="${v}"${c.refreshMinutes === v ? ' selected' : ''}>${l}</option>`)
           .join('')}</select></div>
+    </section>
+    <section class="fs" id="colors">
+      <h3>Colours</h3>
+      <p>The outline shows whose ticket it is; the stripe on the left (the fill in Graph) shows its state. Changes apply right away and are kept on this Mac.</p>
+      <div class="colors">
+        <div><h4>Outline: owner</h4>${colorRows(OWNER_KEYS, colors)}</div>
+        <div><h4>Stripe: state</h4>${colorRows(STATE_KEYS, colors)}</div>
+      </div>
+      <div class="presets"><button type="button" class="act sm" data-preset="mono">Mono</button><button type="button" class="act sm" data-preset="vivid">Vivid</button></div>
     </section>
     <section class="fs" id="diag">
       <h3>Diagnostics</h3>
@@ -298,6 +317,26 @@ function wire() {
     d.querySelector<HTMLElement>('#j-jql-warn')!.hidden = !!(e.target as HTMLTextAreaElement).value.trim();
   };
   d.querySelector('#sf')!.addEventListener('submit', (e) => e.preventDefault());
+  d.querySelectorAll<HTMLInputElement>('[data-color]').forEach((inp) => {
+    inp.oninput = () => {
+      const c = { ...loadColors(), [inp.dataset.color as ColorKey]: inp.value.toLowerCase() };
+      inp.parentElement!.querySelector('.hex')!.textContent = inp.value.toLowerCase();
+      applyColors(c);
+      saveColors(c);
+    };
+  });
+  d.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => {
+    b.onclick = (e) => {
+      e.preventDefault();
+      const c = { ...PRESETS[b.dataset.preset as keyof typeof PRESETS] };
+      applyColors(c);
+      saveColors(c);
+      d.querySelectorAll<HTMLInputElement>('[data-color]').forEach((inp) => {
+        inp.value = c[inp.dataset.color as ColorKey];
+        inp.parentElement!.querySelector('.hex')!.textContent = inp.value;
+      });
+    };
+  });
 }
 
 /** Re-render while keeping what the user typed (used when the profile or env rows change). */
