@@ -1,0 +1,76 @@
+[
+  {
+    "typeName": "Task",
+    "epic": null,
+    "blockedBy": [],
+    "blocks": [
+      "OUT-9"
+    ],
+    "isMine": false,
+    "inScope": true,
+    "key": "EDGE-1",
+    "summary": "Unassigned, unscheduled",
+    "status": "todo",
+    "statusName": "Backlog",
+    "type": "task",
+    "priority": "none",
+    "assignee": null,
+    "sprint": null,
+    "points": null,
+    "url": "https://example.atlassian.net/browse/EDGE-1"
+  },
+  {
+    "typeName": "Bug",
+    "epic": null,
+    "blockedBy": [
+      "EDGE-3"
+    ],
+    "blocks": [
+      "EDGE-3"
+    ],
+    "isMine": false,
+    "inScope": true,
+    "key": "EDGE-2",
+    "summary": "Cycle A",
+    "status": "prog",
+    "statusName": "In Progress",
+    "type": "bug",
+    "priority": "lowest",
+    "assignee": {
+      "name": "Maya Chen",
+      "initials": "MC"
+    },
+    "sprint": null,
+    "points": 2.5,
+    "url": "https://example.atlassian.net/browse/EDGE-2"
+  },
+  {
+    "typeName": "Sub-task",
+    "epic": "Edge epic",
+    "blockedBy": [
+      "EDGE-2"
+    ],
+    "blocks": [
+      "EDGE-2"
+    ],
+    "isMine": false,
+    "inScope": true,
+    "key": "EDGE-3",
+    "summary": "Cycle B, raw REST shape",
+    "status": "review",
+    "statusName": "In QA",
+    "type": "task",
+    "priority": "highest",
+    "assignee": {
+      "name": "ada lovelace king",
+      "initials": "AL"
+    },
+    "sprint": {
+      "id": 11,
+      "name": "Next Sprint",
+      "state": "future"
+    },
+    "points": 1,
+    "url": "https://example.atlassian.net/browse/EDGE-3"
+  }
+]

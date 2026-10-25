@@ -1,0 +1,35 @@
+[
+  {
+    "key": "PAY-103",
+    "summary": "Ledger write API",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "high",
+    "assignee": {
+      "name": "Parth",
+      "initials": "P"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 5,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-102",
+      "PAY-111"
+    ],
+    "blocks": [
+      "PAY-104",
+      "PAY-105",
+      "PAY-113",
+      "PAY-109"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-103",
+    "inScope": true
+  }
+]

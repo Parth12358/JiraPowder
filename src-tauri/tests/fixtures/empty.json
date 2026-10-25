@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"total\": 0,\n  \"start_at\": 0,\n  \"max_results\": 50,\n  \"issues\": []\n}"
+    }
+  ],
+  "isError": false
+}

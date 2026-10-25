@@ -1,0 +1,1985 @@
+{
+  "site": "https://example.atlassian.net",
+  "me": "acc-0001",
+  "issues": [
+    {
+      "id": "10101",
+      "key": "PAY-101",
+      "summary": "Define payout ledger schema",
+      "browse_url": "https://example.atlassian.net/browse/PAY-101",
+      "status": {
+        "name": "Done",
+        "category": "Done",
+        "color": "green"
+      },
+      "issue_type": {
+        "name": "Task"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0002",
+        "display_name": "Maya Chen",
+        "name": "Maya Chen",
+        "email": "maya@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0002"
+      },
+      "issuelinks": [
+        {
+          "id": "121010",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10102",
+            "key": "PAY-102",
+            "fields": {
+              "summary": "Migrate ledger tables to Postgres 16",
+              "status": {
+                "name": "In Progress",
+                "category": "In Progress",
+                "color": "yellow"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        },
+        {
+          "id": "121011",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10106",
+            "key": "PAY-106",
+            "fields": {
+              "summary": "Retry and idempotency keys",
+              "status": {
+                "name": "In Review",
+                "category": "In Progress",
+                "color": "yellow"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 3,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 42,
+            "name": "PAY Sprint 42",
+            "state": "closed",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10110",
+      "key": "PAY-110",
+      "summary": "Auth scopes for payouts API",
+      "browse_url": "https://example.atlassian.net/browse/PAY-110",
+      "status": {
+        "name": "Done",
+        "category": "Done",
+        "color": "green"
+      },
+      "issue_type": {
+        "name": "Task"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0003",
+        "display_name": "Dev Patel",
+        "name": "Dev Patel",
+        "email": "dev@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0003"
+      },
+      "issuelinks": [
+        {
+          "id": "121100",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10111",
+            "key": "PAY-111",
+            "fields": {
+              "summary": "Rate limiting on write endpoints",
+              "status": {
+                "name": "In Progress",
+                "category": "In Progress",
+                "color": "yellow"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 2,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 42,
+            "name": "PAY Sprint 42",
+            "state": "closed",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10102",
+      "key": "PAY-102",
+      "summary": "Migrate ledger tables to Postgres 16",
+      "browse_url": "https://example.atlassian.net/browse/PAY-102",
+      "status": {
+        "name": "In Progress",
+        "category": "In Progress",
+        "color": "yellow"
+      },
+      "issue_type": {
+        "name": "Task"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0001",
+        "display_name": "Parth",
+        "name": "Parth",
+        "email": "parth@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0001"
+      },
+      "issuelinks": [
+        {
+          "id": "121020",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10101",
+            "key": "PAY-101",
+            "fields": {
+              "summary": "Define payout ledger schema",
+              "status": {
+                "name": "Done",
+                "category": "Done",
+                "color": "green"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        },
+        {
+          "id": "121021",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10103",
+            "key": "PAY-103",
+            "fields": {
+              "summary": "Ledger write API",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 5,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10111",
+      "key": "PAY-111",
+      "summary": "Rate limiting on write endpoints",
+      "browse_url": "https://example.atlassian.net/browse/PAY-111",
+      "status": {
+        "name": "In Progress",
+        "category": "In Progress",
+        "color": "yellow"
+      },
+      "issue_type": {
+        "name": "Story"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0003",
+        "display_name": "Dev Patel",
+        "name": "Dev Patel",
+        "email": "dev@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0003"
+      },
+      "issuelinks": [
+        {
+          "id": "121110",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10110",
+            "key": "PAY-110",
+            "fields": {
+              "summary": "Auth scopes for payouts API",
+              "status": {
+                "name": "Done",
+                "category": "Done",
+                "color": "green"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        },
+        {
+          "id": "121111",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10103",
+            "key": "PAY-103",
+            "fields": {
+              "summary": "Ledger write API",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 3,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10106",
+      "key": "PAY-106",
+      "summary": "Retry and idempotency keys",
+      "browse_url": "https://example.atlassian.net/browse/PAY-106",
+      "status": {
+        "name": "In Review",
+        "category": "In Progress",
+        "color": "yellow"
+      },
+      "issue_type": {
+        "name": "Story"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0002",
+        "display_name": "Maya Chen",
+        "name": "Maya Chen",
+        "email": "maya@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0002"
+      },
+      "issuelinks": [
+        {
+          "id": "121060",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10101",
+            "key": "PAY-101",
+            "fields": {
+              "summary": "Define payout ledger schema",
+              "status": {
+                "name": "Done",
+                "category": "Done",
+                "color": "green"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        },
+        {
+          "id": "121061",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10107",
+            "key": "PAY-107",
+            "fields": {
+              "summary": "Payout status webhooks",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 3,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10103",
+      "key": "PAY-103",
+      "summary": "Ledger write API",
+      "browse_url": "https://example.atlassian.net/browse/PAY-103",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Story"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0001",
+        "display_name": "Parth",
+        "name": "Parth",
+        "email": "parth@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0001"
+      },
+      "issuelinks": [
+        {
+          "id": "121030",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10102",
+            "key": "PAY-102",
+            "fields": {
+              "summary": "Migrate ledger tables to Postgres 16",
+              "status": {
+                "name": "In Progress",
+                "category": "In Progress",
+                "color": "yellow"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        },
+        {
+          "id": "121031",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10111",
+            "key": "PAY-111",
+            "fields": {
+              "summary": "Rate limiting on write endpoints",
+              "status": {
+                "name": "In Progress",
+                "category": "In Progress",
+                "color": "yellow"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121032",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10104",
+            "key": "PAY-104",
+            "fields": {
+              "summary": "Payout scheduler service",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121033",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10105",
+            "key": "PAY-105",
+            "fields": {
+              "summary": "NACHA bank file export",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121034",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10113",
+            "key": "PAY-113",
+            "fields": {
+              "summary": "Payouts API reference docs",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Low"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        },
+        {
+          "id": "121035",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10109",
+            "key": "PAY-109",
+            "fields": {
+              "summary": "Nightly reconciliation job",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 5,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10115",
+      "key": "PAY-115",
+      "summary": "Fix currency rounding on JPY payouts",
+      "browse_url": "https://example.atlassian.net/browse/PAY-115",
+      "status": {
+        "name": "In Progress",
+        "category": "In Progress",
+        "color": "yellow"
+      },
+      "issue_type": {
+        "name": "Bug"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0001",
+        "display_name": "Parth",
+        "name": "Parth",
+        "email": "parth@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0001"
+      },
+      "issuelinks": [],
+      "customfield_10016": {
+        "value": 1,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10104",
+      "key": "PAY-104",
+      "summary": "Payout scheduler service",
+      "browse_url": "https://example.atlassian.net/browse/PAY-104",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Story"
+      },
+      "priority": {
+        "name": "High"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0003",
+        "display_name": "Dev Patel",
+        "name": "Dev Patel",
+        "email": "dev@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0003"
+      },
+      "issuelinks": [
+        {
+          "id": "121040",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10103",
+            "key": "PAY-103",
+            "fields": {
+              "summary": "Ledger write API",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121041",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10107",
+            "key": "PAY-107",
+            "fields": {
+              "summary": "Payout status webhooks",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121042",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10112",
+            "key": "PAY-112",
+            "fields": {
+              "summary": "Load test payout flow",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 8,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10105",
+      "key": "PAY-105",
+      "summary": "NACHA bank file export",
+      "browse_url": "https://example.atlassian.net/browse/PAY-105",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Story"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0004",
+        "display_name": "Sam Okafor",
+        "name": "Sam Okafor",
+        "email": "sam@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0004"
+      },
+      "issuelinks": [
+        {
+          "id": "121050",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10103",
+            "key": "PAY-103",
+            "fields": {
+              "summary": "Ledger write API",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121051",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10109",
+            "key": "PAY-109",
+            "fields": {
+              "summary": "Nightly reconciliation job",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 5,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10113",
+      "key": "PAY-113",
+      "summary": "Payouts API reference docs",
+      "browse_url": "https://example.atlassian.net/browse/PAY-113",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Task"
+      },
+      "priority": {
+        "name": "Low"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0005",
+        "display_name": "Lena Ruiz",
+        "name": "Lena Ruiz",
+        "email": "lena@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0005"
+      },
+      "issuelinks": [
+        {
+          "id": "121130",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10103",
+            "key": "PAY-103",
+            "fields": {
+              "summary": "Ledger write API",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121131",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10116",
+            "key": "PAY-116",
+            "fields": {
+              "summary": "Regenerate SDK types",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Low"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 2,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10107",
+      "key": "PAY-107",
+      "summary": "Payout status webhooks",
+      "browse_url": "https://example.atlassian.net/browse/PAY-107",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Story"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0001",
+        "display_name": "Parth",
+        "name": "Parth",
+        "email": "parth@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0001"
+      },
+      "issuelinks": [
+        {
+          "id": "121070",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10104",
+            "key": "PAY-104",
+            "fields": {
+              "summary": "Payout scheduler service",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121071",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10106",
+            "key": "PAY-106",
+            "fields": {
+              "summary": "Retry and idempotency keys",
+              "status": {
+                "name": "In Review",
+                "category": "In Progress",
+                "color": "yellow"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121072",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10108",
+            "key": "PAY-108",
+            "fields": {
+              "summary": "Admin payouts dashboard",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 5,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10109",
+      "key": "PAY-109",
+      "summary": "Nightly reconciliation job",
+      "browse_url": "https://example.atlassian.net/browse/PAY-109",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Story"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0004",
+        "display_name": "Sam Okafor",
+        "name": "Sam Okafor",
+        "email": "sam@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0004"
+      },
+      "issuelinks": [
+        {
+          "id": "121090",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10105",
+            "key": "PAY-105",
+            "fields": {
+              "summary": "NACHA bank file export",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121091",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10103",
+            "key": "PAY-103",
+            "fields": {
+              "summary": "Ledger write API",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121092",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10112",
+            "key": "PAY-112",
+            "fields": {
+              "summary": "Load test payout flow",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 5,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 43,
+            "name": "PAY Sprint 43",
+            "state": "active",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10108",
+      "key": "PAY-108",
+      "summary": "Admin payouts dashboard",
+      "browse_url": "https://example.atlassian.net/browse/PAY-108",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Story"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0005",
+        "display_name": "Lena Ruiz",
+        "name": "Lena Ruiz",
+        "email": "lena@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0005"
+      },
+      "issuelinks": [
+        {
+          "id": "121080",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10107",
+            "key": "PAY-107",
+            "fields": {
+              "summary": "Payout status webhooks",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121081",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10114",
+            "key": "PAY-114",
+            "fields": {
+              "summary": "Feature-flag rollout plan",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Low"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 8,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 44,
+            "name": "PAY Sprint 44",
+            "state": "future",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10112",
+      "key": "PAY-112",
+      "summary": "Load test payout flow",
+      "browse_url": "https://example.atlassian.net/browse/PAY-112",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Task"
+      },
+      "priority": {
+        "name": "Medium"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0001",
+        "display_name": "Parth",
+        "name": "Parth",
+        "email": "parth@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0001"
+      },
+      "issuelinks": [
+        {
+          "id": "121120",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10104",
+            "key": "PAY-104",
+            "fields": {
+              "summary": "Payout scheduler service",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "High"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121121",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10109",
+            "key": "PAY-109",
+            "fields": {
+              "summary": "Nightly reconciliation job",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        },
+        {
+          "id": "121122",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "outward_issue": {
+            "id": "10114",
+            "key": "PAY-114",
+            "fields": {
+              "summary": "Feature-flag rollout plan",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Low"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 3,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 44,
+            "name": "PAY Sprint 44",
+            "state": "future",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10116",
+      "key": "PAY-116",
+      "summary": "Regenerate SDK types",
+      "browse_url": "https://example.atlassian.net/browse/PAY-116",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Task"
+      },
+      "priority": {
+        "name": "Low"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0005",
+        "display_name": "Lena Ruiz",
+        "name": "Lena Ruiz",
+        "email": "lena@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0005"
+      },
+      "issuelinks": [
+        {
+          "id": "121160",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10113",
+            "key": "PAY-113",
+            "fields": {
+              "summary": "Payouts API reference docs",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Low"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 1,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 44,
+            "name": "PAY Sprint 44",
+            "state": "future",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    },
+    {
+      "id": "10114",
+      "key": "PAY-114",
+      "summary": "Feature-flag rollout plan",
+      "browse_url": "https://example.atlassian.net/browse/PAY-114",
+      "status": {
+        "name": "To Do",
+        "category": "To Do",
+        "color": "blue-gray"
+      },
+      "issue_type": {
+        "name": "Task"
+      },
+      "priority": {
+        "name": "Low"
+      },
+      "parent": {
+        "id": "10050",
+        "key": "PAY-50",
+        "self": "https://example.atlassian.net/rest/api/3/issue/10050",
+        "fields": {
+          "summary": "Payouts v2",
+          "status": {
+            "name": "In Progress",
+            "category": "In Progress",
+            "color": "yellow"
+          },
+          "priority": {
+            "name": "Medium"
+          },
+          "issuetype": {
+            "name": "Epic"
+          }
+        }
+      },
+      "assignee": {
+        "account_id": "acc-0002",
+        "display_name": "Maya Chen",
+        "name": "Maya Chen",
+        "email": "maya@example.com",
+        "avatar_url": "https://example.atlassian.net/avatar/acc-0002"
+      },
+      "issuelinks": [
+        {
+          "id": "121140",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10112",
+            "key": "PAY-112",
+            "fields": {
+              "summary": "Load test payout flow",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Task"
+              }
+            }
+          }
+        },
+        {
+          "id": "121141",
+          "type": {
+            "id": "10000",
+            "name": "Blocks",
+            "inward": "is blocked by",
+            "outward": "blocks"
+          },
+          "inward_issue": {
+            "id": "10108",
+            "key": "PAY-108",
+            "fields": {
+              "summary": "Admin payouts dashboard",
+              "status": {
+                "name": "To Do",
+                "category": "To Do",
+                "color": "blue-gray"
+              },
+              "priority": {
+                "name": "Medium"
+              },
+              "issuetype": {
+                "name": "Story"
+              }
+            }
+          }
+        }
+      ],
+      "customfield_10016": {
+        "value": 2,
+        "name": "Story point estimate"
+      },
+      "customfield_10020": {
+        "value": [
+          {
+            "id": 44,
+            "name": "PAY Sprint 44",
+            "state": "future",
+            "boardId": 7,
+            "goal": "",
+            "startDate": "2026-10-12T09:00:00.000Z",
+            "endDate": "2026-10-26T09:00:00.000Z"
+          }
+        ],
+        "name": "Sprint"
+      }
+    }
+  ]
+}

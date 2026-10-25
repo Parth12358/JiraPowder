@@ -1,0 +1,295 @@
+[
+  {
+    "key": "PAY-102",
+    "summary": "Migrate ledger tables to Postgres 16",
+    "status": "prog",
+    "statusName": "In Progress",
+    "type": "task",
+    "typeName": "Task",
+    "priority": "high",
+    "assignee": {
+      "name": "Parth",
+      "initials": "P"
+    },
+    "isMine": true,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 5,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-101"
+    ],
+    "blocks": [
+      "PAY-103"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-102",
+    "inScope": true
+  },
+  {
+    "key": "PAY-111",
+    "summary": "Rate limiting on write endpoints",
+    "status": "prog",
+    "statusName": "In Progress",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "med",
+    "assignee": {
+      "name": "Dev Patel",
+      "initials": "DP"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 3,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-110"
+    ],
+    "blocks": [
+      "PAY-103"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-111",
+    "inScope": true
+  },
+  {
+    "key": "PAY-106",
+    "summary": "Retry and idempotency keys",
+    "status": "review",
+    "statusName": "In Review",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "med",
+    "assignee": {
+      "name": "Maya Chen",
+      "initials": "MC"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 3,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-101"
+    ],
+    "blocks": [
+      "PAY-107"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-106",
+    "inScope": true
+  },
+  {
+    "key": "PAY-103",
+    "summary": "Ledger write API",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "high",
+    "assignee": {
+      "name": "Parth",
+      "initials": "P"
+    },
+    "isMine": true,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 5,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-102",
+      "PAY-111"
+    ],
+    "blocks": [
+      "PAY-104",
+      "PAY-105",
+      "PAY-113",
+      "PAY-109"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-103",
+    "inScope": true
+  },
+  {
+    "key": "PAY-115",
+    "summary": "Fix currency rounding on JPY payouts",
+    "status": "prog",
+    "statusName": "In Progress",
+    "type": "bug",
+    "typeName": "Bug",
+    "priority": "high",
+    "assignee": {
+      "name": "Parth",
+      "initials": "P"
+    },
+    "isMine": true,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 1,
+    "epic": "Payouts v2",
+    "blockedBy": [],
+    "blocks": [],
+    "url": "https://example.atlassian.net/browse/PAY-115",
+    "inScope": true
+  },
+  {
+    "key": "PAY-104",
+    "summary": "Payout scheduler service",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "high",
+    "assignee": {
+      "name": "Dev Patel",
+      "initials": "DP"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 8,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-103"
+    ],
+    "blocks": [
+      "PAY-107",
+      "PAY-112"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-104",
+    "inScope": true
+  },
+  {
+    "key": "PAY-105",
+    "summary": "NACHA bank file export",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "med",
+    "assignee": {
+      "name": "Sam Okafor",
+      "initials": "SO"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 5,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-103"
+    ],
+    "blocks": [
+      "PAY-109"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-105",
+    "inScope": true
+  },
+  {
+    "key": "PAY-113",
+    "summary": "Payouts API reference docs",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "task",
+    "typeName": "Task",
+    "priority": "low",
+    "assignee": {
+      "name": "Lena Ruiz",
+      "initials": "LR"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 2,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-103"
+    ],
+    "blocks": [
+      "PAY-116"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-113",
+    "inScope": true
+  },
+  {
+    "key": "PAY-107",
+    "summary": "Payout status webhooks",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "med",
+    "assignee": {
+      "name": "Parth",
+      "initials": "P"
+    },
+    "isMine": true,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 5,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-104",
+      "PAY-106"
+    ],
+    "blocks": [
+      "PAY-108"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-107",
+    "inScope": true
+  },
+  {
+    "key": "PAY-109",
+    "summary": "Nightly reconciliation job",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "med",
+    "assignee": {
+      "name": "Sam Okafor",
+      "initials": "SO"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 43,
+      "name": "PAY Sprint 43",
+      "state": "active"
+    },
+    "points": 5,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-105",
+      "PAY-103"
+    ],
+    "blocks": [
+      "PAY-112"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-109",
+    "inScope": true
+  }
+]

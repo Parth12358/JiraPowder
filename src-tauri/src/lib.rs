@@ -1,3 +1,7 @@
+pub mod env_path;
+pub mod error;
+pub mod mcp;
+
 #[cfg(feature = "app")]
 pub fn run() {
     tauri::Builder::default()

@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"total\": 4,\n  \"start_at\": 0,\n  \"max_results\": 50,\n  \"issues\": [\n    {\n      \"id\": \"10102\",\n      \"key\": \"PAY-102\",\n      \"summary\": \"Migrate ledger tables to Postgres 16\"\n    },\n    {\n      \"id\": \"10103\",\n      \"key\": \"PAY-103\",\n      \"summary\": \"Ledger write API\"\n    },\n    {\n      \"id\": \"10115\",\n      \"key\": \"PAY-115\",\n      \"summary\": \"Fix currency rounding on JPY payouts\"\n    },\n    {\n      \"id\": \"10107\",\n      \"key\": \"PAY-107\",\n      \"summary\": \"Payout status webhooks\"\n    }\n  ]\n}"
+    }
+  ],
+  "isError": false
+}

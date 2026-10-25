@@ -1,0 +1,143 @@
+[
+  {
+    "key": "PAY-101",
+    "summary": "Define payout ledger schema",
+    "status": "done",
+    "statusName": "Done",
+    "type": "task",
+    "typeName": "Task",
+    "priority": "med",
+    "assignee": {
+      "name": "Maya Chen",
+      "initials": "MC"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 42,
+      "name": "PAY Sprint 42",
+      "state": "closed"
+    },
+    "points": 3,
+    "epic": "Payouts v2",
+    "blockedBy": [],
+    "blocks": [
+      "PAY-102",
+      "PAY-106"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-101",
+    "inScope": false
+  },
+  {
+    "key": "PAY-110",
+    "summary": "Auth scopes for payouts API",
+    "status": "done",
+    "statusName": "Done",
+    "type": "task",
+    "typeName": "Task",
+    "priority": "med",
+    "assignee": {
+      "name": "Dev Patel",
+      "initials": "DP"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 42,
+      "name": "PAY Sprint 42",
+      "state": "closed"
+    },
+    "points": 2,
+    "epic": "Payouts v2",
+    "blockedBy": [],
+    "blocks": [
+      "PAY-111"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-110",
+    "inScope": false
+  },
+  {
+    "key": "PAY-108",
+    "summary": "Admin payouts dashboard",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "story",
+    "typeName": "Story",
+    "priority": "med",
+    "assignee": {
+      "name": "Lena Ruiz",
+      "initials": "LR"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 44,
+      "name": "PAY Sprint 44",
+      "state": "future"
+    },
+    "points": 8,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-107"
+    ],
+    "blocks": [
+      "PAY-114"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-108",
+    "inScope": false
+  },
+  {
+    "key": "PAY-112",
+    "summary": "Load test payout flow",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "task",
+    "typeName": "Task",
+    "priority": "med",
+    "assignee": {
+      "name": "Parth",
+      "initials": "P"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 44,
+      "name": "PAY Sprint 44",
+      "state": "future"
+    },
+    "points": 3,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-104",
+      "PAY-109"
+    ],
+    "blocks": [
+      "PAY-114"
+    ],
+    "url": "https://example.atlassian.net/browse/PAY-112",
+    "inScope": false
+  },
+  {
+    "key": "PAY-116",
+    "summary": "Regenerate SDK types",
+    "status": "todo",
+    "statusName": "To Do",
+    "type": "task",
+    "typeName": "Task",
+    "priority": "low",
+    "assignee": {
+      "name": "Lena Ruiz",
+      "initials": "LR"
+    },
+    "isMine": false,
+    "sprint": {
+      "id": 44,
+      "name": "PAY Sprint 44",
+      "state": "future"
+    },
+    "points": 1,
+    "epic": "Payouts v2",
+    "blockedBy": [
+      "PAY-113"
+    ],
+    "blocks": [],
+    "url": "https://example.atlassian.net/browse/PAY-116",
+    "inScope": false
+  }
+]
