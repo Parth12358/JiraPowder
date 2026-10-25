@@ -1,0 +1,17 @@
+<!-- App icon source. To regenerate: render this to a 1024 px PNG, then run `npx tauri icon <png> -o src-tauri/icons` and delete the android/ and ios/ folders it adds. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#272727"/>
+      <stop offset="1" stop-color="#151515"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="1016" height="1016" rx="224" fill="url(#bg)" stroke="#303030" stroke-width="8"/>
+  <!-- Same glyph as the header logo (16-unit grid), centred: lines run centre to centre. -->
+  <g transform="translate(512 512) scale(41) translate(-8 -8)">
+    <path d="M3.5 4L8 12L12.5 4" fill="none" stroke="#f2f2f2" stroke-width="1.4"/>
+    <circle cx="3.5" cy="4" r="2" fill="#f2f2f2"/>
+    <circle cx="12.5" cy="4" r="2" fill="#f2f2f2"/>
+    <circle cx="8" cy="12" r="2" fill="#3fd6c6"/>
+  </g>
+</svg>

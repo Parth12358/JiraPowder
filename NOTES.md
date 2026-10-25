@@ -4,6 +4,14 @@ Open questions and decisions found while building. Newest first.
 
 ---
 
+## Logo geometry differs from the mockup (v0.1.4)
+
+In the mockup's logo the two lines don't point at the circle centres, so the V looks bent.
+The header, setup page and app icon now draw them centre to centre (`M3.5 4L8 12L12.5 4`,
+under the circles). The icon source is `src-tauri/icons/icon.svg`.
+
+---
+
 ## Renamed Blockmap → JiraPowder (v0.1.2)
 
 PLAN.md and `reference/blockmap-mockup.html` keep the old name; everything else uses
