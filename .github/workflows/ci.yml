@@ -1,0 +1,44 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: lts/*, cache: npm }
+      - run: node scripts/check-versions.mjs
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  rust:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            tools/fake-mcp/package-lock.json
+      - uses: dtolnay/rust-toolchain@stable
+        with: { components: 'clippy, rustfmt' }
+      - uses: swatinem/rust-cache@v2
+        with: { workspaces: './src-tauri -> target' }
+      - run: npm ci
+      - run: npm ci
+        working-directory: tools/fake-mcp
+      - run: npm run build            # frontend dist must exist for tauri's build script
+      - run: cargo fmt --check
+        working-directory: src-tauri
+      - run: cargo clippy --all-targets -- -D warnings
+        working-directory: src-tauri
+      - run: cargo test
+        working-directory: src-tauri

@@ -1,0 +1,53 @@
+name: release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: node scripts/check-versions.mjs
+      - name: tag matches app version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          APP=$(node -p "require('./src-tauri/tauri.conf.json').version")
+          [ "v$APP" = "${GITHUB_REF_NAME}" ] || { echo "Tag ${GITHUB_REF_NAME} != v$APP"; exit 1; }
+
+  build:
+    needs: check-version
+    permissions:
+      contents: write
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            tools/fake-mcp/package-lock.json
+      - uses: dtolnay/rust-toolchain@stable
+        with: { targets: 'aarch64-apple-darwin,x86_64-apple-darwin' }
+      - uses: swatinem/rust-cache@v2
+        with: { workspaces: './src-tauri -> target' }
+      - run: npm ci
+      - run: npm ci
+        working-directory: tools/fake-mcp
+      - run: npm test
+      - run: npm run build            # cargo test needs dist/ for tauri's build script
+      - run: cargo test
+        working-directory: src-tauri
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__
+          releaseName: 'Blockmap v__VERSION__'
+          releaseBody: 'Unsigned (ad-hoc) macOS build. See README → Installing.'
+          releaseDraft: true
+          prerelease: false
+          args: '--target universal-apple-darwin'
