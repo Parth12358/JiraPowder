@@ -4,6 +4,29 @@ Open questions and decisions found while building. Newest first.
 
 ---
 
+## Phase 5 decisions
+
+- **Opener capability.** The plan lists the opener permission scoped to the Jira site in
+  `capabilities/default.json`. The frontend never calls the opener plugin: `open_in_jira`
+  builds `https://<site>/browse/<KEY>` in Rust (key validated, site from config) and opens it
+  there. Rust-side plugin calls don't go through capabilities, so the capability file grants
+  only `core:default`. That is stricter than the plan.
+- **Command logic lives in `backend.rs`**, which has no Tauri dependency, so it is tested
+  headless (`cargo test --no-default-features`), including against the fake server.
+  `commands.rs` only forwards to it.
+- **Type-checking the app without webkit.** With stub `.pc` files for
+  `webkit2gtk-4.1` / `javascriptcoregtk-4.1` on `PKG_CONFIG_PATH`,
+  `cargo check --all-targets` and `cargo clippy --all-targets -- -D warnings` pass with the
+  `app` feature. Nothing was linked or run.
+- **In-app UI states** were checked in headless Chromium with a mocked
+  `__TAURI_INTERNALS__` bridge serving a snapshot from the real Rust pipeline + fake server:
+  loaded, refreshing, error (Retry / Diagnostics), Open in Jira, and 170+ tickets.
+  Graph (force) layout for 175 tickets takes ~330 ms once; Flow ~50 ms.
+- **Fake server in Settings** needs `node` and the source tree (dev builds). Release builds
+  report "only available in development builds".
+
+---
+
 ## Build machine is Linux, not macOS (Phases 1–7)
 
 This repo was built on Arch Linux without `webkit2gtk-4.1`, so the Tauri app crate could not be

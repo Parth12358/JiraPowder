@@ -8,7 +8,15 @@ export const DEFAULT_CONFIG: Config = {
   server: { command: 'uvx', args: ['mcp-atlassian'], env: { READ_ONLY_MODE: 'true' } },
   profile: 'mcp-atlassian',
   tools: {
-    search: { name: 'jira_search', jqlArg: 'jql', fieldsArg: 'fields', limitArg: 'limit', startArg: 'start_at', pageSize: 50 },
+    search: {
+      name: 'jira_search',
+      jqlArg: 'jql',
+      fieldsArg: 'fields',
+      limitArg: 'limit',
+      startArg: 'start_at',
+      pageTokenArg: 'page_token',
+      pageSize: 50,
+    },
     fields: 'jira_search_fields',
   },
   fields: { storyPoints: 'customfield_10016', sprint: 'customfield_10020' },
@@ -78,6 +86,8 @@ function render() {
       <div class="field"><label for="t-fields">Fields argument</label><input class="in mono" id="t-fields" value="${esc(c.tools.search.fieldsArg)}"></div>
       <div class="field"><label for="t-limit">Limit argument</label><input class="in mono" id="t-limit" value="${esc(c.tools.search.limitArg)}"></div>
       <div class="field"><label for="t-start">Offset argument</label><input class="in mono" id="t-start" value="${esc(c.tools.search.startArg)}"></div>
+      <div class="field"><label for="t-token">Page token argument</label><input class="in mono" id="t-token" value="${esc(c.tools.search.pageTokenArg ?? '')}">
+        <span class="help">Leave empty if the server pages with an offset only.</span></div>
       <div class="field"><label for="t-page">Page size</label><input class="in mono" id="t-page" type="number" min="1" max="100" value="${c.tools.search.pageSize}"></div>`
           : ''
       }
@@ -170,6 +180,7 @@ function readForm(): { next: Config; secrets: [string, string][] } {
       fieldsArg: v('t-fields'),
       limitArg: v('t-limit'),
       startArg: v('t-start'),
+      pageTokenArg: v('t-token') || null,
       pageSize: Math.max(1, Math.min(100, Number(v('t-page')) || 50)),
     };
   }
@@ -202,7 +213,8 @@ async function loadDiagnostics() {
   try {
     const d = await api.getDiagnostics();
     dlg().querySelector('#d-path')!.textContent = d.path || '—';
-    dlg().querySelector('#d-log')!.textContent = d.stderr.length ? d.stderr.join('\n') : 'No server output yet.';
+    const last = d.lastError ? `Last error (${d.lastError.kind}): ${d.lastError.message}\n\n` : '';
+    dlg().querySelector('#d-log')!.textContent = last + (d.stderr.length ? d.stderr.join('\n') : 'No server output yet.');
   } catch (e) {
     dlg().querySelector('#d-log')!.textContent = toAppError(e).message;
   }

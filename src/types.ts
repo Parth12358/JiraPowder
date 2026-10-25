@@ -45,6 +45,8 @@ export interface SearchTool {
   fieldsArg: string;
   limitArg: string;
   startArg: string;
+  /** Cursor argument for token pagination (Jira Cloud). */
+  pageTokenArg?: string | null;
   pageSize: number;
 }
 

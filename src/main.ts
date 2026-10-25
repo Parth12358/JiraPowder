@@ -43,10 +43,10 @@ function renderSprintPicker() {
   ($('sprint') as HTMLSelectElement).value = st.filter.sprint;
 }
 
-function computeVis() {
+function computeVis(pickDefault = false) {
   st.visible = computeVisible(st.graph, st.snapshot.tickets, st.filter);
   const { base, vis } = st.visible;
-  if (st.sel && !vis.has(st.sel)) {
+  if ((pickDefault && !st.sel) || (st.sel && !vis.has(st.sel))) {
     const g = st.graph;
     st.sel = [...base].find((k) => g.byKey.get(k)!.isMine && g.byKey.get(k)!.status !== 'done') ?? [...base][0] ?? null;
   }
@@ -67,8 +67,8 @@ function renderEmpty() {
 }
 
 /** Filter changed: rebuild and lay out from scratch (mockup behaviour). */
-function full() {
-  computeVis();
+function full(pickDefault = false) {
+  computeVis(pickDefault);
   map.build();
   st.pos = {};
   map.relayout({ animate: false });
@@ -102,7 +102,7 @@ function applySnapshot(snap: Snapshot, isDemo: boolean, firstPaint = false) {
     st.filter.sprint = defaultSprint(sprintOptions(snap));
     renderSprintPicker();
     if (!isDemo) st.sel = null;
-    full();
+    full(true);
     return;
   }
   renderSprintPicker();

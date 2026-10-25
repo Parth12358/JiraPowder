@@ -184,3 +184,76 @@ async fn missing_command_is_reported() {
     };
     assert_eq!(mcp.ensure(&spec).await.unwrap_err().kind(), "CommandNotFound");
 }
+
+mod backend {
+    use blockmap_lib::backend::Backend;
+    use blockmap_lib::store::{Config, MemorySecrets};
+
+    async fn configured() -> (Backend, tempfile::TempDir) {
+        let d = tempfile::tempdir().unwrap();
+        let b = Backend::new(
+            d.path().join("cfg"),
+            d.path().join("data"),
+            Box::new(MemorySecrets::default()),
+        );
+        let cfg = Config {
+            project_key: "PAY".into(),
+            site: "https://example.atlassian.net".into(),
+            use_fake_server: true,
+            ..Config::default()
+        };
+        b.save_config(cfg).await.unwrap();
+        (b, d)
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_connection_and_fetch_with_cache() {
+        let (b, _d) = configured().await;
+        let r = b.test_connection().await.unwrap();
+        assert_eq!(r.server_name, "Fake Jira MCP");
+        assert!(r.missing.is_empty());
+        assert!(
+            !r.tools.contains(&"jira_create_issue".to_string()),
+            "only read tools are reported"
+        );
+
+        assert!(b.load_cached_snapshot().unwrap().is_none());
+        let s = b.fetch_snapshot(None).await.unwrap();
+        assert_eq!(s.tickets.len(), 15);
+        assert_eq!(b.load_cached_snapshot().unwrap(), Some(s));
+
+        let f = b.detect_fields().await.unwrap();
+        assert_eq!(f.story_points.as_deref(), Some("customfield_10016"));
+        assert_eq!(f.sprint.as_deref(), Some("customfield_10020"));
+        b.shutdown().await;
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn concurrent_fetches_share_one_result() {
+        let (b, _d) = configured().await;
+        let (x, y) = tokio::join!(b.fetch_snapshot(None), b.fetch_snapshot(None));
+        let (x, y) = (x.unwrap(), y.unwrap());
+        assert_eq!(x.fetched_at, y.fetched_at);
+        assert_eq!(x, y);
+        b.shutdown().await;
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn broken_command_gives_a_readable_error() {
+        let d = tempfile::tempdir().unwrap();
+        let b = Backend::new(
+            d.path().join("cfg"),
+            d.path().join("data"),
+            Box::new(MemorySecrets::default()),
+        );
+        let mut cfg = Config {
+            project_key: "PAY".into(),
+            ..Config::default()
+        };
+        cfg.server.command = "uvxx-typo".into();
+        b.save_config(cfg).await.unwrap();
+        let e = b.fetch_snapshot(None).await.unwrap_err();
+        assert_eq!(e.kind(), "CommandNotFound");
+        assert!(e.to_string().contains("uvxx-typo"));
+    }
+}
