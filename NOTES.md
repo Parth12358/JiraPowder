@@ -4,6 +4,21 @@ Open questions and decisions found while building. Newest first.
 
 ---
 
+## Phases 6–7 — CI and release (not run yet)
+
+The workflows are written but have never run: there is no GitHub remote yet. Differences from
+the plan:
+
+- Both workflows run `node scripts/check-versions.mjs` (plan §7.1 asks for a CI check).
+- `release.yml` runs `npm ci` in `tools/fake-mcp` and `npm run build` before `cargo test`.
+  `cargo test` includes the fake-server integration tests (they need node modules), and
+  Tauri's build script needs `dist/`.
+- `setup-node` caches both lockfiles.
+- The action majors in the plan (`checkout@v7`, `setup-node@v6`, `tauri-action@v1`,
+  `rust-cache@v2`) all resolve. `setup-node@v7` also exists; I kept `v6` to match the plan.
+
+---
+
 ## Phase 5 decisions
 
 - **Opener capability.** The plan lists the opener permission scoped to the Jira site in
