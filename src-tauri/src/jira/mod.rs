@@ -1,5 +1,7 @@
 //! Jira data: the Ticket/Snapshot shapes shared with the UI, JQL building, normalizing.
+pub mod fetch;
 pub mod jql;
+pub mod normalize;
 
 use serde::{Deserialize, Serialize};
 

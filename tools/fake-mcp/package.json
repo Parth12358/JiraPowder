@@ -1,0 +1,14 @@
+{
+  "name": "blockmap-fake-mcp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Fake Jira MCP server for Blockmap tests and demos (answers from fixtures)",
+  "bin": {
+    "blockmap-fake-mcp": "server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
+  }
+}

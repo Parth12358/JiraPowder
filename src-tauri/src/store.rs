@@ -294,7 +294,10 @@ mod tests {
     fn config_round_trips_atomically() {
         let dir = tempfile::tempdir().unwrap();
         assert_eq!(load_config(dir.path()).unwrap(), None);
-        let c = Config { project_key: "PAY".into(), ..Config::default() };
+        let c = Config {
+            project_key: "PAY".into(),
+            ..Config::default()
+        };
         save_config(dir.path(), &c).unwrap();
         assert_eq!(load_config(dir.path()).unwrap(), Some(c));
         assert!(!dir.path().join(".config.json.tmp").exists());
