@@ -278,13 +278,14 @@ circle.dot-st{stroke:#5a5a5a;stroke-width:1}
 .insp .open-jira{align-self:flex-start}
 
 /* Settings sheet */
-.sheet{width:min(680px,calc(100vw - 32px));max-height:min(86vh,860px);padding:0;border:var(--dp-border-hairline) solid var(--dp-color-hairline-2);border-radius:var(--dp-radius-panel);
+/* Definite height: WebKit collapses a flex:1 body inside a dialog that only has max-height. */
+.sheet{width:min(680px,calc(100vw - 32px));height:min(86vh,860px);max-height:none;padding:0;border:var(--dp-border-hairline) solid var(--dp-color-hairline-2);border-radius:var(--dp-radius-panel);
   background:var(--dp-color-panel);color:var(--dp-color-read);box-shadow:0 24px 80px rgba(0,0,0,.7)}
 .sheet[open]{display:flex;flex-direction:column}
 .sheet::backdrop{background:rgba(0,0,0,.62)}
 .sheet-h{display:flex;align-items:center;gap:12px;padding:18px 20px 16px;border-bottom:var(--dp-border-hairline) solid var(--dp-color-hairline)}
 .sheet-h h2{margin:0 auto 0 0;font-size:22px;font-weight:400;letter-spacing:-.03em;color:var(--dp-color-bright)}
-.sheet-b{overflow:auto;min-height:0;flex:1;padding:4px 20px 8px}
+.sheet-b{overflow:auto;min-height:0;flex:1 1 auto;padding:4px 20px 8px}
 .sheet-f{display:flex;align-items:center;gap:8px;padding:14px 20px;border-top:var(--dp-border-hairline) solid var(--dp-color-hairline)}
 .sheet-f .status{margin-right:auto;font-size:13px;color:var(--dp-color-meta)}
 .sheet-f .status.err{color:var(--dp-color-bright)}
