@@ -29,7 +29,11 @@ Claude Desktop or Claude Code MCP config.
 | Server | Command | Arguments | Environment |
 |---|---|---|---|
 | mcp-atlassian (local) | `uvx` | `mcp-atlassian` | `JIRA_URL`, `JIRA_USERNAME`, `JIRA_API_TOKEN` |
-| Atlassian hosted (Rovo) | `npx` | `-y`, `mcp-remote`, `<URL from your config>` | none; the first run opens a browser to sign in |
+
+Atlassian's hosted (Rovo) server is not supported yet. It is untested, and its tools expect a
+site `cloudId` argument that Blockmap doesn't send. See NOTES.md.
+
+Setup page with a copy-paste prompt for Claude Code: https://parth12358.github.io/JiraPowder/
 
 Tick **Keychain** next to a token to keep it in the macOS Keychain instead of the config file.
 Then set the site URL and project key, and press **Save**. Blockmap tests the connection and

@@ -1,0 +1,34 @@
+name: pages
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'src/assets/fonts/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: assemble site
+        run: |
+          mkdir -p site/fonts
+          cp src/assets/fonts/Geist-Regular.woff2 src/assets/fonts/Geist-Medium.woff2 src/assets/fonts/GeistMono-Regular.woff2 src/assets/fonts/LICENSE-OFL.txt site/fonts/
+          cp src-tauri/icons/32x32.png site/icon.png
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with: { path: site }
+      - id: deployment
+        uses: actions/deploy-pages@v5

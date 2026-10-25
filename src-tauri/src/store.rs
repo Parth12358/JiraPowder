@@ -363,6 +363,40 @@ mod tests {
         assert!(c.validate().is_err());
     }
 
+    /// The minimal config.json the setup page (site/index.html) tells people and Claude to write.
+    #[test]
+    fn minimal_config_from_setup_page_loads() {
+        let dir = tempfile::tempdir().unwrap();
+        std::fs::write(
+            dir.path().join("config.json"),
+            r#"{
+              "version": 1,
+              "profile": "mcp-atlassian",
+              "server": {
+                "command": "uvx",
+                "args": ["mcp-atlassian"],
+                "env": {
+                  "JIRA_URL": "https://acme.atlassian.net",
+                  "JIRA_USERNAME": "me@acme.com",
+                  "JIRA_API_TOKEN": "keychain:jira_api_token"
+                }
+              },
+              "site": "https://acme.atlassian.net",
+              "projectKey": "PAY"
+            }"#,
+        )
+        .unwrap();
+        let c = load_config(dir.path()).unwrap().unwrap();
+        assert!(c.validate().is_ok());
+        assert_eq!(c.tools, Config::default().tools);
+        assert_eq!(c.fields, Config::default().fields);
+        let secrets = MemorySecrets::default();
+        secrets.set("jira_api_token", "tok").unwrap();
+        let spec = server_spec(&c, &secrets, "").unwrap();
+        assert!(spec.env.contains(&("JIRA_API_TOKEN".into(), "tok".into())));
+        assert!(spec.env.contains(&("READ_ONLY_MODE".into(), "true".into())));
+    }
+
     #[test]
     fn known_profiles_ignore_edited_tools() {
         let mut c = Config::default();

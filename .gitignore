@@ -6,3 +6,5 @@ probe-out/
 tools/fake-mcp/node_modules/
 *.log
 .DS_Store
+site/fonts/
+site/icon.png

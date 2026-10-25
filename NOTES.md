@@ -4,6 +4,17 @@ Open questions and decisions found while building. Newest first.
 
 ---
 
+## Atlassian's hosted MCP server (Rovo) is not supported
+
+The plan assumed the `custom` profile would cover Atlassian's hosted server through
+`mcp-remote`. It most likely doesn't (untested here): that server's JQL search tool takes a `cloudId` argument, and the
+search-tool config has no way to pass extra fixed arguments. Options: (a) add an
+`extraArgs` map to `SearchTool` and look up the cloud id once with the server's resources tool
+(needs that tool on the allowlist); (b) a dedicated `atlassian-remote` profile that handles both.
+Either one needs the real tool schemas from a probe run against the hosted server first.
+
+---
+
 ## Phases 6–7 — CI and release (not run yet)
 
 The workflows are written but have never run: there is no GitHub remote yet. Differences from
