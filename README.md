@@ -65,10 +65,14 @@ It asks before each command and doesn't touch your Claude config or Jira.
 Atlassian's hosted (Rovo) MCP server is not supported yet. It is untested, and its tools expect
 a site `cloudId` argument that JiraPowder doesn't send. See `NOTES.md`.
 
-### Upgrading from Blockmap (v0.1.1)
+### Upgrading
 
-The app was called Blockmap in v0.1.1. JiraPowder doesn't read Blockmap's settings, so delete
-`Blockmap.app` and set JiraPowder up again.
+Download the new `.dmg` and drag JiraPowder to Applications, replacing the old copy. Your
+settings, Keychain token, cached tickets and colours are kept. If the Dock still shows the old
+icon, run `killall Dock`.
+
+If you still have **Blockmap.app** (the app's name before v0.1.2), delete it. JiraPowder doesn't
+read its settings, so set JiraPowder up once as above.
 
 ## Using it
 
