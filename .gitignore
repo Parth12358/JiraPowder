@@ -1,0 +1,8 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/schemas/
+probe-out/
+tools/fake-mcp/node_modules/
+*.log
+.DS_Store

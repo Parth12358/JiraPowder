@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blockmap</title>
+<script type="module" src="/src/main.ts" defer></script>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 16 16"><circle cx="3.5" cy="4" r="2" fill="#f2f2f2"/><circle cx="12.5" cy="4" r="2" fill="#f2f2f2"/><circle cx="8" cy="12" r="2" fill="#f2f2f2"/><path d="M5 5l2.2 5.2M11 5l-2.2 5.2" stroke="#f2f2f2" stroke-width="1.4"/></svg></div>
+      <h1>Blockmap</h1>
+      <span class="src" id="src" aria-live="polite"><b id="src-label">Demo data</b><span class="upd" id="upd"></span></span>
+    </div>
+    <div class="ctl">
+      <label for="sprint" class="visually-hidden" hidden>Sprint</label>
+      <select id="sprint" aria-label="Sprint"></select>
+      <label class="toggle" for="mine"><input type="checkbox" id="mine"> My tickets</label>
+      <div class="seg" role="group" aria-label="Layout">
+        <button id="m-flow" aria-pressed="true">Flow</button>
+        <button id="m-graph" aria-pressed="false">Graph</button>
+      </div>
+      <button class="act icon" id="refresh" aria-label="Refresh from Jira" title="Refresh (⌘R)"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 6.2A5.4 5.4 0 0 0 3.1 5M2.8 9.8A5.4 5.4 0 0 0 12.9 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13.6 2.6v3.8H9.8M2.4 13.4V9.6h3.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="act icon" id="open-settings" aria-label="Settings" title="Settings (⌘,)"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4.5h7M12.5 4.5H14M2 11.5h1.5M7 11.5h7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10.75" cy="4.5" r="1.75" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5.25" cy="11.5" r="1.75" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    </div>
+  </header>
+
+  <div class="notice" id="notice" role="status" hidden></div>
+
+  <div class="work">
+    <aside class="panel list-panel">
+      <div class="ph">
+        <div class="tabs" role="tablist">
+          <button role="tab" id="tab-list" aria-selected="true">Tickets</button>
+          <button role="tab" id="tab-order" aria-selected="false">Work order</button>
+        </div>
+        <span class="count" id="count"></span>
+      </div>
+      <div id="pane-list" class="scroll">
+        <div class="sw"><input class="search" id="q" type="search" placeholder="Filter by key, title or person" aria-label="Filter tickets"></div>
+        <div id="list"></div>
+      </div>
+      <div id="pane-order" class="scroll" hidden></div>
+    </aside>
+
+    <section class="stage" id="stage">
+      <svg id="svg" class="mode-flow" aria-label="Ticket dependency map">
+        <defs>
+          <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.5" fill="var(--dot)"/></pattern>
+          <filter id="lift" x="-30%" y="-30%" width="160%" height="190%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity=".6"/></filter>
+          <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset=".38" stop-color="#fff" stop-opacity="0"/><stop offset=".72" stop-color="#68426c" stop-opacity="0"/><stop offset="1" stop-color="#68426c" stop-opacity=".16"/></linearGradient>
+          <radialGradient id="bulb" cx=".34" cy=".3" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#68426c" stop-opacity="0"/><stop offset="1" stop-color="#68426c" stop-opacity=".22"/></radialGradient>
+          <marker id="a-def" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path class="m-def" d="M0 0L10 5L0 10z"/></marker>
+          <marker id="a-up" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path class="m-up" d="M0 0L10 5L0 10z"/></marker>
+          <marker id="a-down" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path class="m-down" d="M0 0L10 5L0 10z"/></marker>
+        </defs>
+        <g id="world">
+          <rect x="-6000" y="-6000" width="12000" height="12000" fill="url(#dots)" id="bgrect"/>
+          <g id="edges"></g>
+          <g id="nodes"></g>
+        </g>
+      </svg>
+      <div class="stage-empty" id="stage-empty" hidden><p id="stage-empty-msg">No tickets in this sprint.</p><button class="act sm" id="change-scope">Change scope</button></div>
+      <div class="hint">Drag to pan · scroll to zoom · drag a ticket to move it</div>
+      <div class="legend">
+        <span><i class="sw-line" style="border-color:var(--blocking)"></i>Blocking selected</span>
+        <span><i class="sw-line" style="border-color:var(--blocked-by)"></i>Blocked by selected</span>
+        <span><i class="sw-line" style="border-color:var(--dp-color-meta)"></i>Outside this view</span>
+      </div>
+      <div class="zoom">
+        <button id="zo" aria-label="Zoom out">−</button>
+        <button id="zf" class="z" aria-label="Fit to screen">Fit</button>
+        <button id="zi" aria-label="Zoom in">+</button>
+      </div>
+    </section>
+
+    <aside class="panel insp-panel" aria-label="Ticket details">
+      <div class="ih">
+        <span class="ih-t">Ticket details</span>
+        <button id="insp-toggle" class="ih-b" aria-expanded="true" aria-controls="insp" aria-label="Hide ticket details">
+          <span class="lbl">Hide</span>
+          <svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2.5L8 6l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="scroll" id="insp"></div>
+    </aside>
+  </div>
+</div>
+
+
+<dialog class="sheet" id="settings" aria-labelledby="settings-title"></dialog>
+</body>
+</html>
