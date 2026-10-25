@@ -61,7 +61,7 @@ only). It serves the sample tickets through a real MCP connection.
 | `src-tauri/src/mcp/` | MCP client (`rmcp`), read-only guard, tool profiles |
 | `src-tauri/src/jira/` | JQL builders, normalizer, fetch pipeline |
 | `src-tauri/src/backend.rs` | All command logic, testable without Tauri |
-| `src-tauri/src/bin/mcp_probe.rs` | Discovery CLI: lists a server's tools and saves raw read results |
+| `src-tauri/examples/mcp_probe.rs` | Discovery CLI: lists a server's tools and saves raw read results |
 | `tools/fake-mcp/` | Fake Jira MCP server for tests and demos |
 | `tools/make-fixtures.mjs`, `tools/redact.mjs` | Test fixtures: synthetic, or redacted real output |
 

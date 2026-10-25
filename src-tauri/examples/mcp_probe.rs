@@ -2,7 +2,7 @@
 //! tool name + input schema to probe-out/tools.json, then runs a few READ calls and saves the
 //! raw results. All calls go through the read-only guard.
 //!
-//!   cargo run --no-default-features --bin mcp_probe -- ~/blockmap-probe.json
+//!   cargo run --no-default-features --example mcp_probe -- ~/blockmap-probe.json
 //!
 //! Config: { "command": "uvx", "args": ["mcp-atlassian"], "env": { ... },
 //!           "projectKey": "PAY", "issueKey": "PAY-103" }

@@ -82,7 +82,7 @@ cat > ~/blockmap-probe.json <<'JSON'
   "env": { "JIRA_URL": "https://yourcompany.atlassian.net", "JIRA_USERNAME": "you@company.com", "JIRA_API_TOKEN": "…" },
   "projectKey": "PAY", "issueKey": "PAY-103" }
 JSON
-cargo run --no-default-features --bin mcp_probe -- ~/blockmap-probe.json
+cargo run --no-default-features --example mcp_probe -- ~/blockmap-probe.json
 node ../tools/redact.mjs probe-out tests/fixtures   # writes tests/fixtures/real_*.json
 ```
 

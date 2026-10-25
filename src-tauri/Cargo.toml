@@ -1,6 +1,6 @@
 [package]
 name = "blockmap"
-version = "0.1.0"
+version = "0.1.1"
 description = "Read-only Jira blocker map over MCP"
 authors = ["Parth Sanjay Kshirsagar"]
 license = "MIT"
@@ -17,9 +17,8 @@ name = "blockmap"
 path = "src/main.rs"
 required-features = ["app"]
 
-[[bin]]
-name = "mcp_probe"
-path = "src/bin/mcp_probe.rs"
+# The Phase 2 probe is a cargo example (examples/mcp_probe.rs) rather than a [[bin]]: the Tauri
+# bundler packages every bin target, and the universal macOS build failed on it.
 
 # `app` pulls in Tauri (and the system webview). Everything else — MCP client, guard,
 # JQL, normalizer, store — builds and tests without it: `cargo test --no-default-features`.
