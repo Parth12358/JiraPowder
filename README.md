@@ -1,45 +1,96 @@
 # JiraPowder
 
-A macOS app that reads your Jira tickets through an MCP server and shows which tickets block
-which, as a **Flow** map (columns by dependency depth) or a **Graph** (force layout).
+A Mac app that shows which of your Jira tickets block which. It draws your sprint as a
+**Flow** map (columns by dependency depth) or a **Graph** (force layout), lists what you can
+start now, and tells you what each ticket is waiting on.
 
 - **Read-only.** JiraPowder only calls allowlisted read tools (`jira_search`, `jira_get_issue`,
-  `jira_search_fields`). Anything that looks like a write is refused in the app, and
-  `mcp-atlassian` is always started with `READ_ONLY_MODE=true`.
-- **Local.** It starts the same MCP server you already use with Claude, as a child process.
-  No LLM and no JiraPowder servers are involved.
+  `jira_search_fields`). Anything that could change Jira is refused in the app, and
+  `mcp-atlassian` always runs with `READ_ONLY_MODE=true`.
+- **Local.** It starts the same `mcp-atlassian` server you already use with Claude, as a child
+  process. No LLM and no JiraPowder servers are involved.
 - **Works offline** with the last snapshot it fetched.
 
-## Installing a release
+**Setup page:** https://parth12358.github.io/JiraPowder/
 
-1. Download the `.dmg` from the latest release and drag JiraPowder to Applications.
-2. First open: right-click → **Open**, or System Settings → Privacy & Security → **Open Anyway**.
-3. If macOS says the app "is damaged and can't be opened", it's the quarantine flag on an
-   unsigned download. Run:
+> Early release. It has been tested against a fake Jira server, not a real one yet. If the
+> arrows or story points look wrong for your site, please
+> [open an issue](https://github.com/Parth12358/JiraPowder/issues) with Settings → Diagnostics.
+
+## Install
+
+[Download the latest `.dmg`](https://github.com/Parth12358/JiraPowder/releases/latest). It is
+a universal build for Apple Silicon and Intel, macOS 12 or later.
+
+### With Claude Code
+
+Copy the prompt from the [setup page](https://parth12358.github.io/JiraPowder/) and paste it
+into Claude Code in Terminal on your Mac. Claude Code then:
+
+- installs the app
+- finds your `mcp-atlassian` settings in your Claude config, or asks you for them
+- stores the API token in the Keychain
+- writes the JiraPowder config and opens the app
+
+It asks before each command and doesn't touch your Claude config or Jira.
+
+### Yourself
+
+1. Open the `.dmg` and drag JiraPowder to Applications. The app isn't notarized, so the first
+   time, right-click it and choose **Open**. If macOS says it is damaged, run:
 
    ```sh
    xattr -dr com.apple.quarantine /Applications/JiraPowder.app
    ```
 
-## Connecting Jira
+2. Install `uv` if `uvx --version` doesn't work: `brew install uv`.
+3. Get a Jira API token from
+   [id.atlassian.com → Security → API tokens](https://id.atlassian.com/manage-profile/security/api-tokens),
+   or reuse the one in your Claude MCP config.
+4. Open JiraPowder. Settings opens on the first launch (later: ⌘,). Fill it in:
 
-Open **Settings** (⌘,) and copy the `command`, `args` and `env` of the Jira server from your
-Claude Desktop or Claude Code MCP config.
+   | Field | Value |
+   |---|---|
+   | Profile | `mcp-atlassian` |
+   | Command | `uvx` |
+   | Arguments | `mcp-atlassian` |
+   | `JIRA_URL` | `https://yourcompany.atlassian.net` |
+   | `JIRA_USERNAME` | your Atlassian email |
+   | `JIRA_API_TOKEN` | your token, with **Keychain** ticked |
+   | Site URL | `https://yourcompany.atlassian.net` |
+   | Project key | e.g. `PAY` |
 
-| Server | Command | Arguments | Environment |
-|---|---|---|---|
-| mcp-atlassian (local) | `uvx` | `mcp-atlassian` | `JIRA_URL`, `JIRA_USERNAME`, `JIRA_API_TOKEN` |
+   Press **Save**. JiraPowder tests the connection and loads your open sprint.
 
-Atlassian's hosted (Rovo) server is not supported yet. It is untested, and its tools expect a
-site `cloudId` argument that JiraPowder doesn't send. See NOTES.md.
+Atlassian's hosted (Rovo) MCP server is not supported yet. It is untested, and its tools expect
+a site `cloudId` argument that JiraPowder doesn't send. See `NOTES.md`.
 
-Setup page with a copy-paste prompt for Claude Code: https://parth12358.github.io/JiraPowder/
+### Upgrading from Blockmap (v0.1.1)
 
-Tick **Keychain** next to a token to keep it in the macOS Keychain instead of the config file.
-Then set the site URL and project key, and press **Save**. JiraPowder tests the connection and
-lists the tools it found.
+The app was called Blockmap in v0.1.1. JiraPowder doesn't read Blockmap's settings, so delete
+`Blockmap.app` and set JiraPowder up again.
 
-Shortcuts: ⌘R refresh · ⌘F filter tickets · ⌘1 / ⌘2 Flow / Graph · ⌘I show or hide details.
+## Using it
+
+| Shortcut | Does |
+|---|---|
+| ⌘R | Refresh from Jira |
+| ⌘F | Filter the ticket list |
+| ⌘1 / ⌘2 | Flow / Graph |
+| ⌘I | Show or hide ticket details |
+| ⌘, | Settings |
+
+Select a ticket to see its blockers (solid white), the tickets it blocks (dashed), and the
+path to start. Tickets outside the sprint that are linked to it appear as dotted ghosts.
+**Work order** groups open tickets into waves you can start in sequence.
+
+If something goes wrong:
+- **Couldn't find `uvx`**: install uv, or put the full path from `which uvx` in Command.
+- **No story points**: Settings → **Detect** finds your site's field.
+- **Anything else**: Settings → **Diagnostics** shows the server log, with secrets masked.
+
+Settings live in `~/Library/Application Support/dev.parth.jirapowder/`, and the token is in the
+Keychain under the service `jirapowder`.
 
 ## Development
 
@@ -57,7 +108,7 @@ On a machine without a system webview (Linux without `webkit2gtk-4.1`), test eve
 the Tauri shell with `cargo test --no-default-features`.
 
 To try the app without Jira, tick **Use the built-in fake server** in Settings (dev builds
-only). It serves the sample tickets through a real MCP connection.
+only). It serves sample tickets through a real MCP connection.
 
 | Path | What |
 |---|---|
@@ -68,20 +119,26 @@ only). It serves the sample tickets through a real MCP connection.
 | `src-tauri/examples/mcp_probe.rs` | Discovery CLI: lists a server's tools and saves raw read results |
 | `tools/fake-mcp/` | Fake Jira MCP server for tests and demos |
 | `tools/make-fixtures.mjs`, `tools/redact.mjs` | Test fixtures: synthetic, or redacted real output |
+| `site/` | The setup page (GitHub Pages) |
 
-`PLAN.md` is the build plan and `NOTES.md` has the decisions and open questions.
+`PLAN.md` is the original build plan, written when the app was called Blockmap. `NOTES.md` has
+the decisions and open questions.
 
 ## Releasing
 
 ```sh
 node scripts/bump.mjs 0.2.0 && (cd src-tauri && cargo update -p jirapowder)
-git commit -am "release 0.2.0" && git tag v0.2.0 && git push --follow-tags
+git commit -am "release 0.2.0" && git tag -a v0.2.0 -m "JiraPowder v0.2.0" && git push --follow-tags
 ```
 
-The `release` workflow builds a universal (Apple Silicon + Intel), ad-hoc signed `.dmg` and
-creates a **draft** GitHub release. Test it with the manual script in `PLAN.md` §8, then publish
-it by hand.
+The `release` workflow builds a universal, ad-hoc signed `.dmg` and creates a **draft** GitHub
+release. Test it with the manual script in `PLAN.md` §8, then publish it:
+
+```sh
+gh release edit v0.2.0 --draft=false --latest
+```
 
 ## License
 
 MIT. Geist and Geist Mono fonts: SIL Open Font License (`src/assets/fonts/LICENSE-OFL.txt`).
+Not affiliated with Atlassian.
