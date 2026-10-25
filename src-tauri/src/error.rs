@@ -14,7 +14,7 @@ pub enum Error {
     AuthRequired(String),
     #[error("{0}")]
     Timeout(String),
-    #[error("Blocked a call to `{0}`: Blockmap only uses read-only tools.")]
+    #[error("Blocked a call to `{0}`: JiraPowder only uses read-only tools.")]
     ToolNotAllowed(String),
     #[error("The server does not offer `{0}`. Check the tool names in Settings.")]
     ToolMissing(String),

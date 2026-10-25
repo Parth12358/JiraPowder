@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    blockmap_lib::run()
+    jirapowder_lib::run()
 }

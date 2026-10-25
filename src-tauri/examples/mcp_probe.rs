@@ -2,7 +2,7 @@
 //! tool name + input schema to probe-out/tools.json, then runs a few READ calls and saves the
 //! raw results. All calls go through the read-only guard.
 //!
-//!   cargo run --no-default-features --example mcp_probe -- ~/blockmap-probe.json
+//!   cargo run --no-default-features --example mcp_probe -- ~/jirapowder-probe.json
 //!
 //! Config: { "command": "uvx", "args": ["mcp-atlassian"], "env": { ... },
 //!           "projectKey": "PAY", "issueKey": "PAY-103" }
@@ -11,9 +11,9 @@ use std::collections::BTreeMap;
 use std::path::Path;
 
 use anyhow::{bail, Context};
-use blockmap_lib::env_path;
-use blockmap_lib::mcp::profile::MCP_ATLASSIAN;
-use blockmap_lib::mcp::{Mcp, ServerSpec};
+use jirapowder_lib::env_path;
+use jirapowder_lib::mcp::profile::MCP_ATLASSIAN;
+use jirapowder_lib::mcp::{Mcp, ServerSpec};
 use serde::Deserialize;
 use serde_json::{json, Map, Value};
 

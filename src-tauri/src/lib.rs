@@ -35,7 +35,7 @@ pub fn run() {
             let settings = MenuItemBuilder::with_id("settings", "Settings…")
                 .accelerator("CmdOrCtrl+,")
                 .build(app)?;
-            let app_menu = SubmenuBuilder::new(app, "Blockmap")
+            let app_menu = SubmenuBuilder::new(app, "JiraPowder")
                 .about(None)
                 .separator()
                 .item(&settings)
@@ -90,7 +90,7 @@ pub fn run() {
             commands::open_in_jira,
         ])
         .build(tauri::generate_context!())
-        .expect("error while building Blockmap");
+        .expect("error while building JiraPowder");
 
     app.run(|handle, event| {
         if let RunEvent::Exit = event {

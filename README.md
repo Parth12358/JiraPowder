@@ -1,24 +1,24 @@
-# Blockmap
+# JiraPowder
 
 A macOS app that reads your Jira tickets through an MCP server and shows which tickets block
 which, as a **Flow** map (columns by dependency depth) or a **Graph** (force layout).
 
-- **Read-only.** Blockmap only calls allowlisted read tools (`jira_search`, `jira_get_issue`,
+- **Read-only.** JiraPowder only calls allowlisted read tools (`jira_search`, `jira_get_issue`,
   `jira_search_fields`). Anything that looks like a write is refused in the app, and
   `mcp-atlassian` is always started with `READ_ONLY_MODE=true`.
 - **Local.** It starts the same MCP server you already use with Claude, as a child process.
-  No LLM and no Blockmap servers are involved.
+  No LLM and no JiraPowder servers are involved.
 - **Works offline** with the last snapshot it fetched.
 
 ## Installing a release
 
-1. Download the `.dmg` from the latest release and drag Blockmap to Applications.
+1. Download the `.dmg` from the latest release and drag JiraPowder to Applications.
 2. First open: right-click → **Open**, or System Settings → Privacy & Security → **Open Anyway**.
 3. If macOS says the app "is damaged and can't be opened", it's the quarantine flag on an
    unsigned download. Run:
 
    ```sh
-   xattr -dr com.apple.quarantine /Applications/Blockmap.app
+   xattr -dr com.apple.quarantine /Applications/JiraPowder.app
    ```
 
 ## Connecting Jira
@@ -31,12 +31,12 @@ Claude Desktop or Claude Code MCP config.
 | mcp-atlassian (local) | `uvx` | `mcp-atlassian` | `JIRA_URL`, `JIRA_USERNAME`, `JIRA_API_TOKEN` |
 
 Atlassian's hosted (Rovo) server is not supported yet. It is untested, and its tools expect a
-site `cloudId` argument that Blockmap doesn't send. See NOTES.md.
+site `cloudId` argument that JiraPowder doesn't send. See NOTES.md.
 
 Setup page with a copy-paste prompt for Claude Code: https://parth12358.github.io/JiraPowder/
 
 Tick **Keychain** next to a token to keep it in the macOS Keychain instead of the config file.
-Then set the site URL and project key, and press **Save**. Blockmap tests the connection and
+Then set the site URL and project key, and press **Save**. JiraPowder tests the connection and
 lists the tools it found.
 
 Shortcuts: ⌘R refresh · ⌘F filter tickets · ⌘1 / ⌘2 Flow / Graph · ⌘I show or hide details.
@@ -74,7 +74,7 @@ only). It serves the sample tickets through a real MCP connection.
 ## Releasing
 
 ```sh
-node scripts/bump.mjs 0.2.0 && (cd src-tauri && cargo update -p blockmap)
+node scripts/bump.mjs 0.2.0 && (cd src-tauri && cargo update -p jirapowder)
 git commit -am "release 0.2.0" && git tag v0.2.0 && git push --follow-tags
 ```
 

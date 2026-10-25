@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-// Fake Jira MCP server (stdio) for Blockmap tests and demos. Answers like mcp-atlassian 0.23
-// from src-tauri/tests/fixtures/fake-issues.json and understands only the JQL Blockmap sends:
+// Fake Jira MCP server (stdio) for JiraPowder tests and demos. Answers like mcp-atlassian 0.23
+// from src-tauri/tests/fixtures/fake-issues.json and understands only the JQL JiraPowder sends:
 // openSprints(), futureSprints(), currentUser(), key in (...).
 //
 // It also offers jira_create_issue so tests can prove the app's guard refuses it. Every call
-// to it is counted in FAKE_MCP_COUNTER (default: <tmp>/blockmap-fake-mcp-writes).
+// to it is counted in FAKE_MCP_COUNTER (default: <tmp>/jirapowder-fake-mcp-writes).
 //
 // Env:
 //   FAKE_MCP_ISSUES   path to an issues file (default: the fixture)
@@ -22,7 +22,7 @@ import { z } from 'zod';
 const here = dirname(fileURLToPath(import.meta.url));
 const file = process.env.FAKE_MCP_ISSUES ?? join(here, '..', '..', 'src-tauri', 'tests', 'fixtures', 'fake-issues.json');
 const data = JSON.parse(readFileSync(file, 'utf8'));
-const counter = process.env.FAKE_MCP_COUNTER ?? join(tmpdir(), 'blockmap-fake-mcp-writes');
+const counter = process.env.FAKE_MCP_COUNTER ?? join(tmpdir(), 'jirapowder-fake-mcp-writes');
 const paging = process.env.FAKE_MCP_PAGING ?? 'token';
 const SPRINT = 'customfield_10020';
 
@@ -133,7 +133,7 @@ server.registerTool(
   },
 );
 
-// A write tool. Blockmap must never call it.
+// A write tool. JiraPowder must never call it.
 server.registerTool(
   'jira_create_issue',
   { description: 'Create a Jira issue (write)', inputSchema: { project_key: z.string().optional(), summary: z.string().optional() } },

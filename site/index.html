@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blockmap setup</title>
-<meta name="description" content="Install Blockmap, a read-only Mac app that maps which Jira tickets block which. Paste one prompt into Claude, or set it up yourself.">
+<title>JiraPowder setup</title>
+<meta name="description" content="Install JiraPowder, a read-only Mac app that maps which Jira tickets block which. Paste one prompt into Claude, or set it up yourself.">
 <link rel="icon" href="icon.png">
 <style>
 @font-face{font-family:"Geist";src:url("fonts/Geist-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
@@ -110,14 +110,14 @@ footer{margin:64px 0 0;padding:20px 0 40px;border-top:1px solid var(--hairline);
 <div class="wrap">
   <header class="top">
     <div class="logo" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 16 16"><circle cx="3.5" cy="4" r="2" fill="#f2f2f2"/><circle cx="12.5" cy="4" r="2" fill="#f2f2f2"/><circle cx="8" cy="12" r="2" fill="#3fd6c6"/><path d="M5 5l2.2 5.2M11 5l-2.2 5.2" stroke="#f2f2f2" stroke-width="1.4"/></svg></div>
-    <span class="name">Blockmap</span>
+    <span class="name">JiraPowder</span>
     <a href="https://github.com/Parth12358/JiraPowder">Source on GitHub</a>
   </header>
 
   <main>
     <section class="intro">
       <h1>See what blocks your Jira tickets.</h1>
-      <p class="lede">Blockmap is a Mac app that draws your sprint as a map of blocking links, so you can see what to start now and what is waiting. It only reads from Jira, through the same <code>mcp-atlassian</code> server you use with Claude.</p>
+      <p class="lede">JiraPowder is a Mac app that draws your sprint as a map of blocking links, so you can see what to start now and what is waiting. It only reads from Jira, through the same <code>mcp-atlassian</code> server you use with Claude.</p>
       <div class="get">
         <a class="btn primary" id="dl" href="https://github.com/Parth12358/JiraPowder/releases">Download for Mac</a>
         <span class="rel" id="rel">For Apple Silicon and Intel Macs, macOS 12 or later</span>
@@ -138,29 +138,29 @@ footer{margin:64px 0 0;padding:20px 0 40px;border-top:1px solid var(--hairline);
             <span class="where">Paste into <b>Claude Code</b> in Terminal on your Mac</span>
             <button class="copy" data-copy="prompt">Copy prompt</button>
           </div>
-<pre id="prompt">Install and set up Blockmap for me on this Mac.
+<pre id="prompt">Install and set up JiraPowder for me on this Mac.
 
-Blockmap is a read-only macOS app (github.com/Parth12358/JiraPowder) that maps which Jira tickets block which. It reads Jira by starting the mcp-atlassian MCP server itself.
+JiraPowder is a read-only macOS app (github.com/Parth12358/JiraPowder) that maps which Jira tickets block which. It reads Jira by starting the mcp-atlassian MCP server itself.
 
 1. Install the app
    - Get the latest release from https://api.github.com/repos/Parth12358/JiraPowder/releases/latest and download the asset whose name ends in "_universal.dmg".
-   - Mount it with `hdiutil attach -nobrowse`, copy Blockmap.app to /Applications (replace an older copy if there is one), then detach the image.
-   - Run: xattr -dr com.apple.quarantine /Applications/Blockmap.app
+   - Mount it with `hdiutil attach -nobrowse`, copy JiraPowder.app to /Applications (replace an older copy if there is one), then detach the image.
+   - Run: xattr -dr com.apple.quarantine /Applications/JiraPowder.app
 
 2. Find my Jira MCP server settings
    - Check `claude mcp list` (and `claude mcp get &lt;name&gt;`), then ~/Library/Application Support/Claude/claude_desktop_config.json under "mcpServers".
    - Use the server that runs mcp-atlassian. I need its command, args, JIRA_URL, JIRA_USERNAME and JIRA_API_TOKEN.
-   - If I only use Atlassian's hosted server (mcp-remote or mcp.atlassian.com), stop and tell me: Blockmap does not support it yet.
+   - If I only use Atlassian's hosted server (mcp-remote or mcp.atlassian.com), stop and tell me: JiraPowder does not support it yet.
    - If you find nothing, ask me for my Jira site URL, my Atlassian email, and an API token from https://id.atlassian.com/manage-profile/security/api-tokens
    - Make sure the command works (for uvx: `uvx --version`; if it is missing, `brew install uv`).
 
 3. Ask me which Jira project key to show (for example PAY) unless it is obvious.
 
 4. Save the API token in the macOS Keychain, not in a file:
-   security add-generic-password -U -s blockmap -a jira_api_token -w '&lt;token&gt;'
+   security add-generic-password -U -s jirapowder -a jira_api_token -w '&lt;token&gt;'
    Never show the token in your replies.
 
-5. Write ~/Library/Application Support/dev.parth.blockmap/config.json (create the folder; if the file exists, show me what you will change first):
+5. Write ~/Library/Application Support/dev.parth.jirapowder/config.json (create the folder; if the file exists, show me what you will change first):
    {
      "version": 1,
      "profile": "mcp-atlassian",
@@ -178,7 +178,7 @@ Blockmap is a read-only macOS app (github.com/Parth12358/JiraPowder) that maps w
    }
    Use the command and args from my existing server config if they differ (for example a full path to uvx, or a pinned version). Copy any other env vars it has, except tokens.
 
-6. Open it with `open -a Blockmap`, then tell me what to expect: macOS may ask whether Blockmap can use the "blockmap" Keychain item (choose Always Allow), and the map loads my open sprint. ⌘R refreshes.
+6. Open it with `open -a JiraPowder`, then tell me what to expect: macOS may ask whether JiraPowder can use the "jirapowder" Keychain item (choose Always Allow), and the map loads my open sprint. ⌘R refreshes.
 
 Do not change my Claude configuration or anything in Jira.</pre>
         </div>
@@ -189,12 +189,12 @@ Do not change my Claude configuration or anything in Jira.</pre>
         <ol class="steps">
           <li>
             <h3>Install the app</h3>
-            <p>Download the <code>.dmg</code> above, open it, and drag Blockmap to Applications. The app isn't notarized by Apple, so the first time, right-click it and choose Open. If macOS says it is damaged, run:</p>
-            <div class="cmd"><code id="c-xattr">xattr -dr com.apple.quarantine /Applications/Blockmap.app</code><button class="copy" data-copy="c-xattr">Copy</button></div>
+            <p>Download the <code>.dmg</code> above, open it, and drag JiraPowder to Applications. The app isn't notarized by Apple, so the first time, right-click it and choose Open. If macOS says it is damaged, run:</p>
+            <div class="cmd"><code id="c-xattr">xattr -dr com.apple.quarantine /Applications/JiraPowder.app</code><button class="copy" data-copy="c-xattr">Copy</button></div>
           </li>
           <li>
             <h3>Install uv</h3>
-            <p>Blockmap starts <code>mcp-atlassian</code> with <code>uvx</code>. Skip this if <code>uvx --version</code> already works.</p>
+            <p>JiraPowder starts <code>mcp-atlassian</code> with <code>uvx</code>. Skip this if <code>uvx --version</code> already works.</p>
             <div class="cmd"><code id="c-uv">brew install uv</code><button class="copy" data-copy="c-uv">Copy</button></div>
           </li>
           <li>
@@ -203,7 +203,7 @@ Do not change my Claude configuration or anything in Jira.</pre>
           </li>
           <li>
             <h3>Connect Jira</h3>
-            <p>Open Blockmap. Settings opens on the first launch (later: <kbd>⌘,</kbd>). Fill it in like this:</p>
+            <p>Open JiraPowder. Settings opens on the first launch (later: <kbd>⌘,</kbd>). Fill it in like this:</p>
             <dl class="fields">
               <dt>Profile</dt><dd>mcp-atlassian</dd>
               <dt>Command</dt><dd>uvx</dd>
@@ -214,7 +214,7 @@ Do not change my Claude configuration or anything in Jira.</pre>
               <dt>Site URL</dt><dd>https://yourcompany.atlassian.net</dd>
               <dt>Project key</dt><dd>PAY <span>(yours)</span></dd>
             </dl>
-            <p style="margin-top:14px">Press Save. Blockmap tests the connection and loads your open sprint.</p>
+            <p style="margin-top:14px">Press Save. JiraPowder tests the connection and loads your open sprint.</p>
           </li>
         </ol>
       </div>
@@ -223,7 +223,7 @@ Do not change my Claude configuration or anything in Jira.</pre>
     <section class="more">
       <div>
         <h2>Only reads</h2>
-        <p>Blockmap can call three tools: search, get issue and list fields. Anything that could change Jira is refused inside the app, and mcp-atlassian always runs with <code>READ_ONLY_MODE=true</code>. Your token stays in the macOS Keychain.</p>
+        <p>JiraPowder can call three tools: search, get issue and list fields. Anything that could change Jira is refused inside the app, and mcp-atlassian always runs with <code>READ_ONLY_MODE=true</code>. Your token stays in the macOS Keychain.</p>
       </div>
       <div>
         <h2>If something is off</h2>
@@ -236,7 +236,7 @@ Do not change my Claude configuration or anything in Jira.</pre>
     </section>
   </main>
 
-  <footer>Blockmap is open source under the MIT license. Not affiliated with Atlassian.</footer>
+  <footer>JiraPowder is open source under the MIT license. Not affiliated with Atlassian.</footer>
 </div>
 
 <script>

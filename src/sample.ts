@@ -1,4 +1,4 @@
-// The 16 sample tickets from reference/blockmap-mockup.html, used in Demo mode only.
+// The 16 sample tickets from reference/jirapowder-mockup.html, used in Demo mode only.
 import type { IssueType, Priority, Snapshot, Sprint, StatusCat, Ticket } from './types';
 
 const ME = 'Parth';

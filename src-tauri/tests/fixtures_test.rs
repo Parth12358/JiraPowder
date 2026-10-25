@@ -2,8 +2,8 @@
 use std::collections::HashSet;
 use std::path::PathBuf;
 
-use blockmap_lib::jira::normalize::{issues_of, normalize, unwrap_result, FieldConfig};
-use blockmap_lib::jira::Ticket;
+use jirapowder_lib::jira::normalize::{issues_of, normalize, unwrap_result, FieldConfig};
+use jirapowder_lib::jira::Ticket;
 use serde_json::Value;
 
 fn dir() -> PathBuf {

@@ -1,11 +1,11 @@
 //! Integration tests against tools/fake-mcp (needs `node` and `npm ci` in tools/fake-mcp).
 use std::path::PathBuf;
 
-use blockmap_lib::env_path;
-use blockmap_lib::jira::fetch::{fetch_snapshot, McpSource};
-use blockmap_lib::mcp::profile::MCP_ATLASSIAN_READ_TOOLS;
-use blockmap_lib::mcp::{Mcp, ServerSpec};
-use blockmap_lib::store::Config;
+use jirapowder_lib::env_path;
+use jirapowder_lib::jira::fetch::{fetch_snapshot, McpSource};
+use jirapowder_lib::mcp::profile::MCP_ATLASSIAN_READ_TOOLS;
+use jirapowder_lib::mcp::{Mcp, ServerSpec};
+use jirapowder_lib::store::Config;
 use serde_json::{json, Map};
 
 struct Fake {
@@ -21,7 +21,7 @@ fn fake(extra_env: &[(&str, &str)]) -> Fake {
     let script = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../tools/fake-mcp/server.mjs");
     // A unique argv marker so the test can look for leftover processes.
     let tag = format!(
-        "--blockmap-test-{}-{}",
+        "--jirapowder-test-{}-{}",
         std::process::id(),
         dir.path().file_name().unwrap().to_string_lossy()
     );
@@ -70,7 +70,7 @@ async fn check_snapshot(cfg: &Config, f: &Fake) {
         .unwrap();
     mcp.disconnect().await;
 
-    let keys = |pred: &dyn Fn(&blockmap_lib::jira::Ticket) -> bool| {
+    let keys = |pred: &dyn Fn(&jirapowder_lib::jira::Ticket) -> bool| {
         let mut k: Vec<&str> = snap
             .tickets
             .iter()
@@ -186,8 +186,8 @@ async fn missing_command_is_reported() {
 }
 
 mod backend {
-    use blockmap_lib::backend::Backend;
-    use blockmap_lib::store::{Config, MemorySecrets};
+    use jirapowder_lib::backend::Backend;
+    use jirapowder_lib::store::{Config, MemorySecrets};
 
     async fn configured() -> (Backend, tempfile::TempDir) {
         let d = tempfile::tempdir().unwrap();

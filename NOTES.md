@@ -4,6 +4,17 @@ Open questions and decisions found while building. Newest first.
 
 ---
 
+## Renamed Blockmap → JiraPowder (v0.1.2)
+
+PLAN.md and `reference/blockmap-mockup.html` keep the old name; everything else uses
+JiraPowder. The bundle id changed to `dev.parth.jirapowder`, so the config now lives in
+`~/Library/Application Support/dev.parth.jirapowder/` and the Keychain service is `jirapowder`.
+Anything set up with v0.1.1 (Blockmap.app, its config folder, `blockmap` Keychain items) is not
+picked up; delete Blockmap.app and set up again.
+
+
+---
+
 ## Atlassian's hosted MCP server (Rovo) is not supported
 
 The plan assumed the `custom` profile would cover Atlassian's hosted server through
@@ -88,12 +99,12 @@ the probe on your Mac with your real config before trusting the normalizer:
 
 ```sh
 cd src-tauri
-cat > ~/blockmap-probe.json <<'JSON'
+cat > ~/jirapowder-probe.json <<'JSON'
 { "command": "uvx", "args": ["mcp-atlassian"],
   "env": { "JIRA_URL": "https://yourcompany.atlassian.net", "JIRA_USERNAME": "you@company.com", "JIRA_API_TOKEN": "…" },
   "projectKey": "PAY", "issueKey": "PAY-103" }
 JSON
-cargo run --no-default-features --example mcp_probe -- ~/blockmap-probe.json
+cargo run --no-default-features --example mcp_probe -- ~/jirapowder-probe.json
 node ../tools/redact.mjs probe-out tests/fixtures   # writes tests/fixtures/real_*.json
 ```
 

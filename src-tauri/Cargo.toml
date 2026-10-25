@@ -1,19 +1,19 @@
 [package]
-name = "blockmap"
-version = "0.1.1"
+name = "jirapowder"
+version = "0.1.2"
 description = "Read-only Jira blocker map over MCP"
 authors = ["Parth Sanjay Kshirsagar"]
 license = "MIT"
 edition = "2021"
 rust-version = "1.90"
-default-run = "blockmap"
+default-run = "jirapowder"
 
 [lib]
-name = "blockmap_lib"
+name = "jirapowder_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [[bin]]
-name = "blockmap"
+name = "jirapowder"
 path = "src/main.rs"
 required-features = ["app"]
 

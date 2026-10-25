@@ -69,7 +69,7 @@ function render() {
     ${browserNote}
     <section class="fs">
       <h3>Server</h3>
-      <p>The MCP server Blockmap starts to read Jira. Use the same command, arguments and environment as your Claude config.</p>
+      <p>The MCP server JiraPowder starts to read Jira. Use the same command, arguments and environment as your Claude config.</p>
       <div class="field"><label for="s-profile">Profile</label>
         <select id="s-profile"><option value="mcp-atlassian"${c.profile === 'mcp-atlassian' ? ' selected' : ''}>mcp-atlassian</option><option value="custom"${custom ? ' selected' : ''}>Custom</option></select>
         <span class="help">mcp-atlassian always runs with READ_ONLY_MODE=true.</span></div>

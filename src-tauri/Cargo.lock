@@ -327,25 +327,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "blockmap"
-version = "0.1.1"
-dependencies = [
- "anyhow",
- "keyring",
- "process-wrap",
- "regex",
- "rmcp",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-opener",
- "tempfile",
- "thiserror 2.0.21",
- "tokio",
-]
-
-[[package]]
 name = "brotli"
 version = "9.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1994,6 +1975,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "875a5a69ac2bab1a891711cf5eccbec1ce0341ea805560dcd90b7a2e925132e8"
 dependencies = [
  "jiff-tzdb",
+]
+
+[[package]]
+name = "jirapowder"
+version = "0.1.2"
+dependencies = [
+ "anyhow",
+ "keyring",
+ "process-wrap",
+ "regex",
+ "rmcp",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-opener",
+ "tempfile",
+ "thiserror 2.0.21",
+ "tokio",
 ]
 
 [[package]]

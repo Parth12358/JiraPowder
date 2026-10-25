@@ -159,7 +159,7 @@ pub fn unmask(mut new: Config, old: &Config) -> Config {
     new
 }
 
-/// Where secrets live. The app uses the macOS Keychain (service `blockmap`).
+/// Where secrets live. The app uses the macOS Keychain (service `jirapowder`).
 pub trait Secrets: Send + Sync {
     fn get(&self, name: &str) -> Result<Option<String>>;
     fn set(&self, name: &str, value: &str) -> Result<()>;
@@ -185,7 +185,7 @@ pub struct Keychain;
 #[cfg(feature = "app")]
 impl Secrets for Keychain {
     fn get(&self, name: &str) -> Result<Option<String>> {
-        let e = keyring::Entry::new("blockmap", name).map_err(|e| Error::Io(e.to_string()))?;
+        let e = keyring::Entry::new("jirapowder", name).map_err(|e| Error::Io(e.to_string()))?;
         match e.get_password() {
             Ok(v) => Ok(Some(v)),
             Err(keyring::Error::NoEntry) => Ok(None),
@@ -193,14 +193,14 @@ impl Secrets for Keychain {
         }
     }
     fn set(&self, name: &str, value: &str) -> Result<()> {
-        let e = keyring::Entry::new("blockmap", name).map_err(|e| Error::Io(e.to_string()))?;
+        let e = keyring::Entry::new("jirapowder", name).map_err(|e| Error::Io(e.to_string()))?;
         e.set_password(value).map_err(|e| Error::Io(format!("Keychain: {e}")))
     }
 }
 
-/// tools/fake-mcp/server.mjs, located via BLOCKMAP_FAKE_MCP or the source tree (dev builds).
+/// tools/fake-mcp/server.mjs, located via JIRAPOWDER_FAKE_MCP or the source tree (dev builds).
 pub fn fake_server_script() -> Option<PathBuf> {
-    if let Some(p) = std::env::var_os("BLOCKMAP_FAKE_MCP") {
+    if let Some(p) = std::env::var_os("JIRAPOWDER_FAKE_MCP") {
         return Some(PathBuf::from(p));
     }
     let p = Path::new(env!("CARGO_MANIFEST_DIR")).join("../tools/fake-mcp/server.mjs");

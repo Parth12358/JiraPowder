@@ -262,8 +262,8 @@ async function boot() {
   if (!isConfigured(config)) {
     // First launch: open Settings once.
     try {
-      if (!localStorage.getItem('blockmap.settingsShown')) {
-        localStorage.setItem('blockmap.settingsShown', '1');
+      if (!localStorage.getItem('jirapowder.settingsShown')) {
+        localStorage.setItem('jirapowder.settingsShown', '1');
         void openSettings();
       }
     } catch {
