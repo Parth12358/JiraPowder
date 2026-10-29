@@ -1,6 +1,6 @@
 [package]
 name = "jirapowder"
-version = "0.2.0"
+version = "0.3.0"
 description = "Read-only Jira blocker map over MCP"
 authors = ["Parth Sanjay Kshirsagar"]
 license = "MIT"
