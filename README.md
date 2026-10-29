@@ -148,15 +148,15 @@ the decisions and open questions.
 ## Releasing
 
 ```sh
-node scripts/bump.mjs 0.2.0 && (cd src-tauri && cargo update -p jirapowder)
-git commit -am "release 0.2.0" && git tag -a v0.2.0 -m "JiraPowder v0.2.0" && git push --follow-tags
+node scripts/bump.mjs 0.3.0 && (cd src-tauri && cargo update -p jirapowder)
+git commit -am "release 0.3.0" && git tag -a v0.3.0 -m "JiraPowder v0.3.0" && git push --follow-tags
 ```
 
 The `release` workflow builds a universal, ad-hoc signed `.dmg` and creates a **draft** GitHub
 release. Test it with the manual script in `PLAN.md` §8, then publish it:
 
 ```sh
-gh release edit v0.2.0 --draft=false --latest
+gh release edit v0.3.0 --draft=false --latest
 ```
 
 ## License
