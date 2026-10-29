@@ -3,6 +3,7 @@ pub mod env_path;
 pub mod error;
 pub mod jira;
 pub mod mcp;
+pub mod notes;
 pub mod store;
 
 #[cfg(feature = "app")]
@@ -88,6 +89,8 @@ pub fn run() {
             commands::get_diagnostics,
             commands::detect_fields,
             commands::open_in_jira,
+            commands::get_notes,
+            commands::set_note,
         ])
         .build(tauri::generate_context!())
         .expect("error while building JiraPowder");

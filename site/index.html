@@ -146,7 +146,7 @@ JiraPowder is a read-only macOS app (github.com/Parth12358/JiraPowder) that maps
    - Get the latest release from https://api.github.com/repos/Parth12358/JiraPowder/releases/latest and download the asset whose name ends in "_universal.dmg".
    - Mount it with `hdiutil attach -nobrowse`, copy JiraPowder.app to /Applications (replace an older copy if there is one), then detach the image.
    - Run: xattr -dr com.apple.quarantine /Applications/JiraPowder.app
-- If ~/Library/Application Support/dev.parth.jirapowder/config.json already exists, JiraPowder is already set up: skip to step 6 (settings, token and colours are kept). If an old Blockmap.app is in /Applications, ask me before deleting it.
+- If ~/Library/Application Support/dev.parth.jirapowder/config.json already exists, JiraPowder is already set up: skip to step 6 (settings, token, colours and notes are kept). If an old Blockmap.app is in /Applications, ask me before deleting it.
 
 2. Find my Jira MCP server settings
    - Check `claude mcp list` (and `claude mcp get &lt;name&gt;`), then ~/Library/Application Support/Claude/claude_desktop_config.json under "mcpServers".
@@ -236,11 +236,11 @@ Do not change my Claude configuration or anything in Jira.</pre>
       </div>
       <div>
         <h2>Updating</h2>
-        <p>Download the new <code>.dmg</code> and drag JiraPowder to Applications, replacing the old copy. Your settings, token, cached tickets and colours are kept. If the Dock still shows the old icon, run <code>killall Dock</code>. Still have Blockmap.app, the name before v0.1.2? Delete it and set JiraPowder up once.</p>
+        <p>Download the new <code>.dmg</code> and drag JiraPowder to Applications, replacing the old copy. Your settings, token, cached tickets, colours and notes are kept. If the Dock still shows the old icon, run <code>killall Dock</code>. Still have Blockmap.app, the name before v0.1.2? Delete it and set JiraPowder up once.</p>
       </div>
       <div>
         <h2>Big sprints and colours</h2>
-        <p>Each card's outline shows whose ticket it is, and the stripe on its left shows whether it is blocked, ready, in progress or done. Pick your own colours in Settings → Colours. With hundreds of tickets, Fit zooms out to show them all as coloured blocks; zoom in for the full cards.</p>
+        <p>Each card's outline shows whose ticket it is, and the stripe on its left shows whether it is blocked, ready, in progress or done. Pick your own colours in Settings → Colours. With hundreds of tickets, Fit zooms out to show them all as coloured blocks; zoom in for the full cards. JiraPowder loads up to 500 tickets by default; change it in Settings → Jira → Ticket limit. To mark tickets for yourself, pick a colour tag or add comments in the ticket details. They stay on your Mac and are never sent to Jira.</p>
       </div>
     </section>
   </main>

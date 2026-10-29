@@ -1,7 +1,7 @@
 // The single in-memory app state. Every view reads tickets from state.snapshot.
 import type { Graph, Filter, Visible } from './graph/model';
 import type { Positions } from './graph/layout';
-import type { AppError, Snapshot } from './types';
+import type { AppError, Notes, Snapshot } from './types';
 
 export type Mode = 'flow' | 'graph';
 
@@ -20,4 +20,6 @@ export interface AppState {
   error: AppError | null;
   /** Warnings from the last fetch plus layout warnings (e.g. cycles). */
   warnings: string[];
+  /** Personal tags and comments by ticket key (local only). */
+  notes: Notes;
 }

@@ -67,8 +67,26 @@ export interface Config {
   defaultScope: Scope;
   customJql: string;
   refreshMinutes: number;
+  /** Most tickets loaded from the scope, and most linked tickets outside it. */
+  maxIssues: number;
+  maxLinked: number;
   useFakeServer: boolean;
 }
+
+export type TagColor = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple';
+
+export interface NoteComment {
+  at: string;
+  text: string;
+}
+
+/** Personal, local-only notes on a ticket (src-tauri/src/notes.rs). */
+export interface Note {
+  tag?: TagColor | null;
+  comments: NoteComment[];
+}
+
+export type Notes = Record<string, Note>;
 
 export type ErrorKind =
   | 'NotConfigured'

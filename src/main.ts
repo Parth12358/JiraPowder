@@ -4,13 +4,14 @@ import { api, inApp, onMenu, toAppError } from './api';
 import { buildGraph, computeVisible, defaultSprint, sprintOptions } from './graph/model';
 import { SAMPLE_INITIAL_SELECTION, bigSnapshot, cycleSnapshot, sampleSnapshot } from './sample';
 import type { AppState, Mode } from './state';
-import type { Config, Snapshot } from './types';
+import type { Config, Note, Snapshot, TagColor } from './types';
 import { $, esc } from './ui/dom';
 import { renderInsp } from './ui/inspector';
 import { renderList } from './ui/list';
 import { createMap } from './ui/map';
 import { renderOrder } from './ui/order';
 import { applyColors, loadColors } from './ui/colors';
+import { MAX_COMMENT_CHARS, loadNotes, saveNote } from './ui/notes';
 import { initSettings, openSettings } from './ui/settings';
 import { renderStatus } from './ui/status';
 
@@ -34,6 +35,7 @@ const st: AppState = {
   loading: false,
   error: null,
   warnings: [],
+  notes: {},
 };
 let config: Config | null = null;
 
@@ -105,6 +107,16 @@ function applySnapshot(snap: Snapshot, isDemo: boolean, firstPaint = false) {
   st.graph = buildGraph(snap.tickets);
   st.demo = isDemo;
   st.warnings = [...snap.warnings];
+  if (prevDemo && !isDemo && inApp()) {
+    // Drop unsaved notes made on sample tickets; show the saved ones.
+    void loadNotes()
+      .then((n) => {
+        st.notes = n;
+        st.visible.vis.forEach((k) => map.refreshNotes(k));
+        renderPanels();
+      })
+      .catch(() => undefined);
+  }
   if (firstPaint || prevDemo !== isDemo) {
     st.filter.sprint = defaultSprint(sprintOptions(snap));
     renderSprintPicker();
@@ -156,6 +168,35 @@ const noticeHandlers = {
   settings: () => void openSettings(),
 };
 
+/* ---------- personal notes ---------- */
+async function updateNote(k: string, change: (n: Note) => Note) {
+  const cur = st.notes[k] ?? { tag: null, comments: [] };
+  const draft = $<HTMLTextAreaElement>('note-text')?.value ?? '';
+  try {
+    await saveNote(st.notes, k, change({ tag: cur.tag ?? null, comments: [...cur.comments] }), !(inApp() && st.demo));
+  } catch (e) {
+    st.error = toAppError(e);
+    renderStatus(st, noticeHandlers);
+  }
+  map.refreshNotes(k);
+  renderList(st);
+  if (st.sel === k) {
+    renderInsp(st, inApp() && !st.demo);
+    const ta = $<HTMLTextAreaElement>('note-text');
+    if (ta) ta.value = draft;
+  }
+}
+
+function addComment() {
+  const ta = $<HTMLTextAreaElement>('note-text');
+  const text = ta?.value.trim().slice(0, MAX_COMMENT_CHARS);
+  if (!ta || !text || !st.sel) return;
+  ta.value = '';
+  void updateNote(st.sel, (n) => ({ ...n, comments: [...n.comments, { at: new Date().toISOString(), text }] })).then(() =>
+    $('note-text')?.focus(),
+  );
+}
+
 /* ---------- timer refresh: only while the window is visible ---------- */
 let timer = 0;
 function scheduleTimer() {
@@ -203,6 +244,22 @@ $('insp-toggle').onclick = toggleInspector;
 
 document.addEventListener('click', (e) => {
   const target = e.target as Element;
+  const tagBtn = target.closest<HTMLElement>('[data-tag]');
+  if (tagBtn && st.sel) {
+    const tag = (tagBtn.dataset.tag || null) as TagColor | null;
+    void updateNote(st.sel, (n) => ({ ...n, tag }));
+    return;
+  }
+  const del = target.closest<HTMLElement>('[data-del-comment]');
+  if (del && st.sel) {
+    const i = Number(del.dataset.delComment);
+    void updateNote(st.sel, (n) => ({ ...n, comments: n.comments.filter((_, j) => j !== i) }));
+    return;
+  }
+  if (target.closest('#note-add')) {
+    addComment();
+    return;
+  }
   const open = target.closest<HTMLElement>('[data-open]');
   if (open) {
     api.openInJira(open.dataset.open!).catch((err) => {
@@ -216,6 +273,13 @@ document.addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => {
   const target = e.target as Element;
+  if ((target as HTMLElement).id === 'note-text') {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      addComment();
+    }
+    return; // typing in a comment: no app shortcuts
+  }
   if (e.key === 'Enter' || (e.key === ' ' && target.matches?.('.item[data-k]'))) {
     const d = target.closest?.<HTMLElement>('.item[data-k]');
     if (d) {
@@ -259,6 +323,11 @@ initSettings({
 /* ---------- boot ---------- */
 async function boot() {
   applyColors(loadColors());
+  try {
+    st.notes = await loadNotes();
+  } catch {
+    st.notes = {};
+  }
   applySnapshot(demo, true, true);
   if (!inApp()) return;
   void onMenu((a) => (a === 'refresh' ? void refresh() : void openSettings()));

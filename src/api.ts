@@ -2,7 +2,7 @@
 // there is no backend, so `inApp()` is false and the UI stays in Demo mode.
 import { invoke } from '@tauri-apps/api/core';
 import { listen, type UnlistenFn } from '@tauri-apps/api/event';
-import type { AppError, Config, ConnectionReport, Diagnostics, Scope, Snapshot } from './types';
+import type { AppError, Config, ConnectionReport, Diagnostics, Note, Notes, Scope, Snapshot } from './types';
 
 export const inApp = () => typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window;
 
@@ -30,6 +30,8 @@ export const api = {
   getDiagnostics: () => call<Diagnostics>('get_diagnostics'),
   detectFields: () => call<{ storyPoints: string | null; sprint: string | null }>('detect_fields'),
   openInJira: (key: string) => call<void>('open_in_jira', { key }),
+  getNotes: () => call<Notes>('get_notes'),
+  setNote: (key: string, note: Note) => call<void>('set_note', { key, note }),
 };
 
 export type MenuAction = 'refresh' | 'settings';

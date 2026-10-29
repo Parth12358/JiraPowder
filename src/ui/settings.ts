@@ -26,7 +26,16 @@ export const DEFAULT_CONFIG: Config = {
   defaultScope: 'openSprints',
   customJql: '',
   refreshMinutes: 0,
+  maxIssues: 500,
+  maxLinked: 200,
   useFakeServer: false,
+};
+
+/** Same ranges as ISSUES_RANGE / LINKED_RANGE in src-tauri/src/store.rs. */
+const LIMITS = { issues: [10, 3000], linked: [0, 1000] } as const;
+const clampInt = (v: string, [lo, hi]: readonly [number, number], dflt: number) => {
+  const n = Math.round(Number(v));
+  return v === '' || !Number.isFinite(n) ? dflt : Math.max(lo, Math.min(hi, n));
 };
 
 /** Env value the backend shows in place of a stored secret. */
@@ -122,6 +131,10 @@ function render() {
         <span class="help" id="j-jql-warn"${c.customJql.trim() ? ' hidden' : ''}>Enter a JQL query, or pick another scope.</span></div>
       <div class="field"><label for="f-sp">Story points field</label><div class="row"><input class="in mono" id="f-sp" value="${esc(c.fields.storyPoints)}" spellcheck="false"><button type="button" class="act sm" data-act="detect"${c.tools.fields ? '' : ' disabled'}>Detect</button></div></div>
       <div class="field"><label for="f-sprint">Sprint field</label><input class="in mono" id="f-sprint" value="${esc(c.fields.sprint)}" spellcheck="false"></div>
+      <div class="field"><label for="j-max">Ticket limit</label><input class="in mono" id="j-max" type="number" min="${LIMITS.issues[0]}" max="${LIMITS.issues[1]}" step="50" value="${c.maxIssues ?? 500}">
+        <span class="help">Most tickets loaded from the scope (${LIMITS.issues[0]}–${LIMITS.issues[1]}). Above about 1000 the map gets slow.</span></div>
+      <div class="field"><label for="j-maxl">Linked ticket limit</label><input class="in mono" id="j-maxl" type="number" min="${LIMITS.linked[0]}" max="${LIMITS.linked[1]}" step="50" value="${c.maxLinked ?? 200}">
+        <span class="help">Most linked tickets outside the scope (ghosts) to load (${LIMITS.linked[0]}–${LIMITS.linked[1]}).</span></div>
     </section>
     <section class="fs">
       <h3>Refresh</h3>
@@ -210,6 +223,8 @@ function readForm(): { next: Config; secrets: [string, string][] } {
   next.customJql = v('j-jql');
   next.fields = { storyPoints: v('f-sp'), sprint: v('f-sprint') };
   next.refreshMinutes = Number(v('r-min')) || 0;
+  next.maxIssues = clampInt(v('j-max'), LIMITS.issues, 500);
+  next.maxLinked = clampInt(v('j-maxl'), LIMITS.linked, 200);
   return { next, secrets };
 }
 

@@ -12,9 +12,6 @@ use crate::mcp::profile::{self, SearchTool};
 use crate::mcp::{Mcp, ServerSpec};
 use crate::store::{Config, Scope};
 
-pub const MAX_ISSUES: usize = 500;
-pub const MAX_LINKED: usize = 200;
-
 /// Something that can run a read-only tool and return the raw CallToolResult JSON.
 #[allow(async_fn_in_trait)]
 pub trait ToolSource {
@@ -205,15 +202,19 @@ pub async fn fetch_snapshot<S: ToolSource>(src: &S, cfg: &Config, scope: Option<
         site: cfg.site.clone(),
     };
     let mut warnings = Vec::new();
+    let max_issues = cfg.max_issues.max(1) as usize;
+    let max_linked = cfg.max_linked as usize;
 
     // 1. scope
-    let (pages, capped) = search_all(src, tool, &jql, &fields, MAX_ISSUES).await?;
+    let (pages, capped) = search_all(src, tool, &jql, &fields, max_issues).await?;
     if capped {
-        warnings.push(format!("Showing the first {MAX_ISSUES} tickets of this scope."));
+        warnings.push(format!(
+            "Showing the first {max_issues} tickets of this scope. Raise the limit in Settings → Jira."
+        ));
     }
 
     // 2. mine
-    let (mine_pages, _) = search_all(src, tool, &mine_jql(&jql), "summary", MAX_ISSUES).await?;
+    let (mine_pages, _) = search_all(src, tool, &mine_jql(&jql), "summary", max_issues).await?;
     let mine: HashSet<String> = mine_pages
         .iter()
         .flat_map(super::normalize::issues_of)
@@ -221,7 +222,7 @@ pub async fn fetch_snapshot<S: ToolSource>(src: &S, cfg: &Config, scope: Option<
         .collect();
 
     let mut n = normalize(&pages, &fc, &mine, true);
-    n.tickets.truncate(MAX_ISSUES);
+    n.tickets.truncate(max_issues);
     warnings.append(&mut n.warnings);
     let mut tickets = n.tickets;
 
@@ -241,15 +242,15 @@ pub async fn fetch_snapshot<S: ToolSource>(src: &S, cfg: &Config, scope: Option<
     if linked.len() < before {
         warnings.push(format!("Ignored {} malformed linked key(s).", before - linked.len()));
     }
-    if linked.len() > MAX_LINKED {
+    if linked.len() > max_linked {
         warnings.push(format!(
-            "{} linked tickets not fetched (limit {MAX_LINKED}).",
-            linked.len() - MAX_LINKED
+            "{} linked tickets not fetched (limit {max_linked}).",
+            linked.len() - max_linked
         ));
-        linked.truncate(MAX_LINKED);
+        linked.truncate(max_linked);
     }
     for q in keys_jql(&linked)? {
-        let (pages, _) = search_all(src, tool, &q, &fields, MAX_LINKED).await?;
+        let (pages, _) = search_all(src, tool, &q, &fields, max_linked.max(1)).await?;
         let mut g = normalize(&pages, &fc, &mine, false);
         warnings.append(&mut g.warnings);
         tickets.extend(g.tickets.into_iter().filter(|t| !have.contains(&t.key)));

@@ -14,6 +14,8 @@ export interface MapApi {
   /** `all` zooms out as far as needed to show every ticket; otherwise stays readable. */
   fit(smooth?: boolean, all?: boolean): void;
   zoomBy(f: number): void;
+  /** Redraw one ticket's tag and comment marks after its notes changed. */
+  refreshNotes(k: string): void;
 }
 
 const PRI_ICON: Record<Priority, 'high' | 'med' | 'low' | null> = {
@@ -150,6 +152,32 @@ export function createMap(st: AppState, onSelect: (k: string | null) => void): M
     if (e && e.contentRect.width) stage = { w: e.contentRect.width, h: e.contentRect.height };
   }).observe(svg);
 
+  /** Tag corner (flow) or dot (graph), and a comment count on flow cards. */
+  function decorate(k: string, n: SVGElement) {
+    n.querySelectorAll('.tagmark,.cmark').forEach((e) => e.remove());
+    const note = st.notes[k];
+    if (!note) return;
+    const t = st.graph.byKey.get(k)!;
+    const c = n.firstElementChild;
+    if (!c) return;
+    if (st.mode === 'flow') {
+      const R = CW / 2,
+        T = -CH / 2;
+      if (note.tag)
+        mk('path', { class: 'tagmark', style: `--tag:var(--tag-${note.tag})`, d: `M${R - 22} ${T}H${R - 6}Q${R} ${T} ${R} ${T + 6}V${T + 22}Z` }, c);
+      if (note.comments.length) {
+        const fy = CH / 2 - 20;
+        const x = -R + 14 + 22 + k.length * 7.3 + 10 + (PRI_ICON[t.priority] ? 12 : -5);
+        const g = mk('g', { class: 'cmark', transform: `translate(${x},${fy - 6})` }, c);
+        mk('path', { d: 'M1 1h11v7.5H5.5L2.5 11V8.5H1z' }, g);
+        mk('text', { x: 16, y: 9.5 }, g).textContent = String(note.comments.length);
+      }
+    } else if (note.tag) {
+      const r = radii[k] ?? 12;
+      mk('circle', { class: 'tagmark', style: `--tag:var(--tag-${note.tag})`, cx: r * 0.72, cy: -r * 0.72, r: 5, stroke: 'var(--dp-color-ground)', 'stroke-width': 2 }, c);
+    }
+  }
+
   function build() {
     gN.textContent = '';
     gE.textContent = '';
@@ -243,6 +271,7 @@ export function createMap(st: AppState, onSelect: (k: string | null) => void): M
         if (t.isMine) mk('circle', { class: 'me-dot', r: 3.5 }, gr);
         mk('text', { class: 'gl', y: r + 15 }, gr).textContent = k;
       }
+      decorate(k, n);
       const pts = t.points == null ? 'no estimate' : `${t.points} pts`;
       mk('title', {}, n).textContent =
         `${k} · ${t.summary}\n${t.typeName} · ${PRI_WORD[t.priority]} priority · ${t.statusName} · ${t.assignee?.name ?? 'Unassigned'} · ${pts}`;
@@ -567,5 +596,10 @@ export function createMap(st: AppState, onSelect: (k: string | null) => void): M
   $('zo').onclick = () => zoomBy(1 / 1.2);
   $('zf').onclick = () => fit(true, true);
 
-  return { build, relayout, highlight, fit, zoomBy };
+  function refreshNotes(k: string) {
+    const n = nodeEls[k];
+    if (n) decorate(k, n);
+  }
+
+  return { build, relayout, highlight, fit, zoomBy, refreshNotes };
 }

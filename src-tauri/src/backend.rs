@@ -11,6 +11,7 @@ use crate::error::{Error, Result};
 use crate::jira::fetch::{self, McpSource};
 use crate::jira::{jql, Snapshot};
 use crate::mcp::{profile, Mcp, ServerSpec};
+use crate::notes::{self, Note, Notes};
 use crate::store::{self, Config, Scope, Secrets};
 
 #[derive(Debug, Clone, Serialize, PartialEq, Eq)]
@@ -48,6 +49,8 @@ pub struct Backend {
     path: OnceCell<String>,
     last_error: Mutex<Option<Error>>,
     inflight: tokio::sync::Mutex<Option<Inflight>>,
+    /// Serializes read-modify-write of notes.json.
+    notes_lock: Mutex<()>,
 }
 
 impl Backend {
@@ -60,6 +63,7 @@ impl Backend {
             path: OnceCell::new(),
             last_error: Mutex::new(None),
             inflight: tokio::sync::Mutex::new(None),
+            notes_lock: Mutex::new(()),
         }
     }
 
@@ -202,6 +206,17 @@ impl Backend {
             return Err(Error::Io(format!("`{key}` is not a Jira issue key.")));
         }
         Ok(format!("{}/browse/{key}", cfg.site))
+    }
+
+    /// Personal tags and comments. Stored next to config.json; never sent to Jira.
+    pub fn get_notes(&self) -> Result<Notes> {
+        let _g = self.notes_lock.lock().unwrap();
+        notes::load(&self.config_dir)
+    }
+
+    pub fn set_note(&self, key: &str, note: Note) -> Result<()> {
+        let _g = self.notes_lock.lock().unwrap();
+        notes::set(&self.config_dir, key, note)
     }
 
     pub async fn shutdown(&self) {

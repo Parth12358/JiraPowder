@@ -17,16 +17,22 @@ export function renderList(st: AppState) {
   const { base } = st.visible;
   const ks = [...base].filter((k) => {
     const t = st.graph.byKey.get(k)!;
-    return !q || (k + ' ' + t.summary + ' ' + (t.assignee?.name ?? '')).toLowerCase().includes(q);
+    if (!q) return true;
+    const n = st.notes[k];
+    const hay = [k, t.summary, t.assignee?.name ?? '', n?.tag ?? '', ...(n?.comments.map((c) => c.text) ?? [])].join(' ');
+    return hay.toLowerCase().includes(q);
   });
   $('count').textContent = base.size + (base.size === 1 ? ' ticket' : ' tickets');
   $('list').innerHTML =
     ks
       .map((k) => {
         const t = st.graph.byKey.get(k)!;
+        const n = st.notes[k];
+        const tag = n?.tag ? `<i class="tag-dot" style="--tag:var(--tag-${n.tag})" title="${n.tag} tag"></i>` : '';
+        const cms = n?.comments.length ? `<span class="cm-n" title="Your comments">${n.comments.length} note${n.comments.length === 1 ? '' : 's'}</span>` : '';
         return `<div class="item${k === st.sel ? ' sel' : ''}" data-k="${esc(k)}" tabindex="0">
-    <span class="k">${esc(k)}</span>${statePill(st, t)}<span class="t">${esc(t.summary)}</span>
-    <span class="meta"><span>${who(t)}</span><span>${esc(t.statusName)}</span><span>${pts(t)}</span></span></div>`;
+    <span class="k">${tag}${esc(k)}</span>${statePill(st, t)}<span class="t">${esc(t.summary)}</span>
+    <span class="meta"><span>${who(t)}</span><span>${esc(t.statusName)}</span><span>${pts(t)}</span>${cms}</span></div>`;
       })
       .join('') ||
     (base.size

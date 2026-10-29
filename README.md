@@ -68,7 +68,7 @@ a site `cloudId` argument that JiraPowder doesn't send. See `NOTES.md`.
 ### Upgrading
 
 Download the new `.dmg` and drag JiraPowder to Applications, replacing the old copy. Your
-settings, Keychain token, cached tickets and colours are kept. If the Dock still shows the old
+settings, Keychain token, cached tickets, colours and notes are kept. If the Dock still shows the old
 icon, run `killall Dock`.
 
 If you still have **Blockmap.app** (the app's name before v0.1.2), delete it. JiraPowder doesn't
@@ -93,7 +93,14 @@ left shows its state (blocked, ready, in progress, done); in Graph the circle's 
 Change the colours in Settings → **Colours**, or pick the **Mono** or **Vivid** preset.
 
 Big sprints (hundreds of tickets): **Fit** zooms out until everything is on screen. Zoomed out,
-cards turn into coloured blocks showing just the key; zoom in for the full card.
+cards turn into coloured blocks showing just the key; zoom in for the full card. JiraPowder loads
+up to 500 tickets from the scope and 200 linked ones by default; change both in Settings → Jira
+(**Ticket limit**, up to 3000, and **Linked ticket limit**).
+
+**Your notes.** In the ticket details, pick a colour tag or add comments. Tags show as a corner
+on the card (a dot in Graph) and in the ticket list; comments show as a count, and the list filter
+searches them. Notes are saved in `notes.json` next to your settings, are kept across refreshes and
+upgrades, and are never sent to Jira.
 
 If something goes wrong:
 - **Couldn't find `uvx`**: install uv, or put the full path from `which uvx` in Command.

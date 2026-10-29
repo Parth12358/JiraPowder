@@ -5,6 +5,7 @@ use tauri_plugin_opener::OpenerExt;
 use crate::backend::{Backend, ConnectionReport, DetectedFields, Diagnostics};
 use crate::error::{Error, Result};
 use crate::jira::Snapshot;
+use crate::notes::{Note, Notes};
 use crate::store::{Config, Scope};
 
 #[tauri::command]
@@ -55,4 +56,14 @@ pub fn open_in_jira(app: tauri::AppHandle, b: State<'_, Backend>, key: String) -
     app.opener()
         .open_url(url, None::<&str>)
         .map_err(|e| Error::Io(e.to_string()))
+}
+
+#[tauri::command]
+pub fn get_notes(b: State<'_, Backend>) -> Result<Notes> {
+    b.get_notes()
+}
+
+#[tauri::command]
+pub fn set_note(b: State<'_, Backend>, key: String, note: Note) -> Result<()> {
+    b.set_note(&key, note)
 }

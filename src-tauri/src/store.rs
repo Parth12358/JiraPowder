@@ -16,6 +16,12 @@ pub const KEYCHAIN_PREFIX: &str = "keychain:";
 /// What the UI sees instead of a secret value; sending it back means "unchanged".
 pub const MASK: &str = "•••";
 
+pub const DEFAULT_MAX_ISSUES: u32 = 500;
+pub const DEFAULT_MAX_LINKED: u32 = 200;
+/// Limits accepted for `max_issues` / `max_linked`. Out-of-range values are clamped on load.
+pub const ISSUES_RANGE: (u32, u32) = (10, 3000);
+pub const LINKED_RANGE: (u32, u32) = (0, 1000);
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
 #[serde(rename_all = "camelCase")]
 pub enum Scope {
@@ -55,6 +61,9 @@ pub struct Config {
     pub default_scope: Scope,
     pub custom_jql: String,
     pub refresh_minutes: u32,
+    /// Most tickets loaded from the scope, and most linked tickets outside it (ghosts).
+    pub max_issues: u32,
+    pub max_linked: u32,
     /// Use tools/fake-mcp instead of `server` (demos, tests).
     pub use_fake_server: bool,
 }
@@ -83,6 +92,8 @@ impl Default for Config {
             default_scope: Scope::OpenSprints,
             custom_jql: String::new(),
             refresh_minutes: 0,
+            max_issues: DEFAULT_MAX_ISSUES,
+            max_linked: DEFAULT_MAX_LINKED,
             use_fake_server: false,
         }
     }
@@ -99,6 +110,8 @@ impl Config {
         }
         self.site = self.site.trim().trim_end_matches('/').to_string();
         self.project_key = self.project_key.trim().to_uppercase();
+        self.max_issues = self.max_issues.clamp(ISSUES_RANGE.0, ISSUES_RANGE.1);
+        self.max_linked = self.max_linked.clamp(LINKED_RANGE.0, LINKED_RANGE.1);
         self
     }
 
@@ -388,6 +401,7 @@ mod tests {
         .unwrap();
         let c = load_config(dir.path()).unwrap().unwrap();
         assert!(c.validate().is_ok());
+        assert_eq!((c.max_issues, c.max_linked), (DEFAULT_MAX_ISSUES, DEFAULT_MAX_LINKED));
         assert_eq!(c.tools, Config::default().tools);
         assert_eq!(c.fields, Config::default().fields);
         let secrets = MemorySecrets::default();
@@ -395,6 +409,17 @@ mod tests {
         let spec = server_spec(&c, &secrets, "").unwrap();
         assert!(spec.env.contains(&("JIRA_API_TOKEN".into(), "tok".into())));
         assert!(spec.env.contains(&("READ_ONLY_MODE".into(), "true".into())));
+    }
+
+    #[test]
+    fn limits_are_clamped() {
+        let c = Config {
+            max_issues: 1,
+            max_linked: 99_999,
+            ..Config::default()
+        }
+        .normalized();
+        assert_eq!((c.max_issues, c.max_linked), (ISSUES_RANGE.0, LINKED_RANGE.1));
     }
 
     #[test]
